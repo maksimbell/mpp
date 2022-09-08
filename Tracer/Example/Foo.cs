@@ -20,7 +20,7 @@ namespace Tracer
         public void MyMethod()
         {
             _tracer.StartTrace();
-
+            Thread.Sleep(1000);
             _bar.InnerMethod();
             _tracer.StopTrace();
         }

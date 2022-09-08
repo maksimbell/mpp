@@ -9,29 +9,29 @@ namespace Tracer
 {
     public class CustomTracer : ITracer
     {
-        private Stopwatch stopwatch;
-        private StackTrace stackTrace;
+        private Stopwatch _stopwatch;
+        private StackTrace _stackTrace;
 
         public TraceResult GetTraceResult()
         {//could be struct?
 
-            TraceResult result = new TraceResult(stackTrace.GetFrame(0).GetMethod().ReflectedType.Name, 
-                stackTrace.GetFrame(0).GetMethod().Name,  
-                stopwatch.ElapsedMilliseconds);
+            TraceResult result = new TraceResult(_stackTrace.GetFrame(0).GetMethod().ReflectedType.Name, 
+                _stackTrace.GetFrame(0).GetMethod().Name,  
+                _stopwatch.ElapsedMilliseconds);
 
             return result;
         }
 
         public void StartTrace()
         {
-            stopwatch = new Stopwatch();
-            stackTrace = new StackTrace();
-            stopwatch.Start();
+            _stopwatch = new Stopwatch();
+            _stackTrace = new StackTrace();
+            _stopwatch.Start();
         }
 
         public void StopTrace()
         {
-            stopwatch.Stop();
+            _stopwatch.Stop();
         }
     }
 }
