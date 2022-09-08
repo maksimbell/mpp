@@ -39,10 +39,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bar.cs" />
     <Compile Include="CustomTracer.cs" />
-    <Compile Include="Foo.cs" />
     <Compile Include="ITracer.cs" />
+    <Compile Include="ITraceResult.cs" />
     <Compile Include="TraceResult.cs" />
   </ItemGroup>
   <ItemGroup>

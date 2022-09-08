@@ -10,18 +10,22 @@ namespace Tracer
     public class CustomTracer : ITracer
     {
         private Stopwatch stopwatch;
+        private StackTrace stackTrace;
 
         public TraceResult GetTraceResult()
-        {
-            TraceResult result = new TraceResult(stopwatch.ElapsedMilliseconds);
+        {//could be struct?
+
+            TraceResult result = new TraceResult(stackTrace.GetFrame(0).GetMethod().ReflectedType.Name, 
+                stackTrace.GetFrame(0).GetMethod().Name,  
+                stopwatch.ElapsedMilliseconds);
 
             return result;
         }
 
         public void StartTrace()
         {
-            var method = new StackTrace().GetFrame(0).GetMethod();
             stopwatch = new Stopwatch();
+            stackTrace = new StackTrace();
             stopwatch.Start();
         }
 
