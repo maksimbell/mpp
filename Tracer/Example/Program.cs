@@ -1,2 +1,14 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿namespace Tracer
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            CustomTracer tracer = new CustomTracer();
+            Foo foo = new Foo(tracer);
+            foo.MyMethod();
+
+            Console.WriteLine(tracer.GetTraceResult().Elapsed + " ms");
+        }
+    }
+}

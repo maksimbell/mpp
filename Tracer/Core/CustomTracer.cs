@@ -22,12 +22,12 @@ namespace Tracer
         {
             var method = new StackTrace().GetFrame(0).GetMethod();
             stopwatch = new Stopwatch();
+            stopwatch.Start();
         }
 
         public void StopTrace()
         {
             stopwatch.Stop();
-
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace Tracer
 {
@@ -17,8 +18,9 @@ namespace Tracer
 
         public void InnerMethod()
         {
-            _tracer.StartTrace();
-            _tracer.StopTrace();
+            /*_tracer.StartTrace();
+            _tracer.StopTrace();*/
+            Thread.Sleep(100);
         }
     }
 }
