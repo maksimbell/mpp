@@ -11,6 +11,5 @@ namespace Tracer
         long Elapsed { get; }
         string MethodName { get; }
         string ClassName { get; }
-        //Dictionary<string, ITraceResult> MethodsTree { get; }
     }
 }

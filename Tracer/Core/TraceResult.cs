@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Tracer
-{
+{   //struct of list element
     public class TraceResult : ITraceResult
     {
         public long Elapsed { get; }
@@ -13,8 +13,6 @@ namespace Tracer
         public string MethodName { get; }
 
         public string ClassName { get; }
-
-        //public Dictionary<string, ITraceResult> MethodsTree { get; set; }
 
         public TraceResult(string className, string methodName, long elapsed)
         {
