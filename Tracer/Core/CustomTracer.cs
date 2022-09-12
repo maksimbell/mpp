@@ -11,17 +11,17 @@ namespace Tracer
     {
         private Stopwatch _stopwatch;
         private StackTrace _stackTrace;
-        IReadOnlyList<TraceResult> methodsTraceResult;
+        private TraceResult _traceResult;
 
         public CustomTracer()
         {
-            methodsTraceResult = new List<TraceResult>().AsReadOnly();///???
+            _traceResult = new TraceResult();
         }
-        public TraceResult GetTraceResult()
+        public MethodTraceResult GetTraceResult()
         {
 
             var method = _stackTrace.GetFrame(0).GetMethod();
-            TraceResult result = new TraceResult(method.ReflectedType.Name, 
+            MethodTraceResult result = new MethodTraceResult(method.ReflectedType.Name, 
                 method.Name,  
                 _stopwatch.ElapsedMilliseconds);
 
@@ -30,13 +30,12 @@ namespace Tracer
 
         public void StartTrace()
         {
-            _stopwatch = Stopwatch.StartNew();
-            _stackTrace = new StackTrace();
+            var thread = _traceResult.GetOrAddThread(Thread.CurrentThread.ManagedThreadId);
         }
 
         public void StopTrace()
         {
-            _stopwatch.Stop();
+            //_stopwatch.Stop();
         }
     }
 }

@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace Tracer
 {
-    public interface ITracer
+    internal interface IMethodTraceResult
     {
-        void StartTrace();
-
-        void StopTrace();
-
-        MethodTraceResult GetTraceResult();
+        long Elapsed { get; }
+        string MethodName { get; }
+        string ClassName { get; }
     }
 }

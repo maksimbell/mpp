@@ -1,24 +1,28 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Tracer
-{   //struct of list element
-    public class TraceResult : ITraceResult
+{
+    public class TraceResult
     {
-        public long Elapsed { get; }
+        private ConcurrentDictionary<int, ThreadTraceResult> _threadResult { get; }
 
-        public string MethodName { get; }
-
-        public string ClassName { get; }
-
-        public TraceResult(string className, string methodName, long elapsed)
+        public TraceResult()
         {
-            Elapsed = elapsed;
-            MethodName = methodName;
-            ClassName = className;
+        }
+
+        public ThreadTraceResult GetOrAddThread(int threadId)
+        {
+            return _threadResult.GetOrAdd(threadId, new ThreadTraceResult(threadId));
+        }
+
+        public ConcurrentDictionary<int, ThreadTraceResult> GetThreadResult()
+        {
+            return _threadResult;
         }
     }
 }
