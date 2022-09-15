@@ -26,10 +26,12 @@ namespace Core
             var thread = _traceResult.GetOrAddThread(Thread.CurrentThread.ManagedThreadId);
 
             StackTrace stackTrace = new StackTrace();
-            var method = stackTrace.GetFrame(1).GetMethod();
-            MethodTraceResult methodTraceResult = new MethodTraceResult(method);
 
-            thread.AddMethod(methodTraceResult);
+            var method = stackTrace.GetFrame(1).GetMethod();
+            string stackState = string.Join(" ", stackTrace.ToString().Split(
+                new string[] { Environment.NewLine }, StringSplitOptions.None).Skip(1));
+
+            thread.AddMethod(new MethodTraceResult(method.ReflectedType.Name, method.Name, stackState));
         }
 
         public void StopTrace()
@@ -37,9 +39,12 @@ namespace Core
             var thread = _traceResult.GetOrAddThread(Thread.CurrentThread.ManagedThreadId);
 
             StackTrace stackTrace = new StackTrace();
-            var method = stackTrace.GetFrame(1).GetMethod();
 
-            MethodTraceResult methodTraceResult = thread.GetMethodTraceResultByName(method);
+            //var method = stackTrace.GetFrame(1).GetMethod();
+            string stackState = string.Join(" ", stackTrace.ToString().Split(
+                new string[] { Environment.NewLine }, StringSplitOptions.None).Skip(1));
+
+            MethodTraceResult methodTraceResult = thread.GetMethodListId(stackState);
             methodTraceResult.SetTime();
         }
     }

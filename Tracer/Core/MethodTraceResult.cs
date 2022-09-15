@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace Core
 {   //struct of list/dict element
-    public class MethodTraceResult : IMethodTraceResult
+    public class MethodTraceResult//i
     {
         public string ClassName { get; }
 
@@ -20,10 +20,12 @@ namespace Core
 
         private Stopwatch _stopwatch;
 
-        public MethodTraceResult(MethodBase method, long elapsed = 0)
+        public string StackState;
+
+        public MethodTraceResult(string className, string methodName, string stackState, long elapsed = 0)
         {
-            ClassName = method.GetType().Name;
-            MethodName = method.Name;
+            ClassName = className;
+            MethodName = methodName;
             Elapsed = elapsed;
             Methods = new List<MethodTraceResult>();
             _stopwatch = Stopwatch.StartNew();
@@ -31,6 +33,7 @@ namespace Core
 
         public void SetTime()
         {
+            _stopwatch.Stop();
             Elapsed = _stopwatch.ElapsedMilliseconds;
         }
     }

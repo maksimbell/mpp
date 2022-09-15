@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace Core
 {
@@ -17,13 +18,13 @@ namespace Core
         }
 
         public void AddMethod(MethodTraceResult methodTraceResult)
-        {//...
+        {
             methodsList.Add(methodTraceResult);
         }
 
-        public MethodTraceResult GetMethodTraceResultByName(MethodBase method)
+        public MethodTraceResult GetMethodListId(string stackState)
         {
-            return methodsList.FindLast(element => element.MethodName == method.Name);
+            return methodsList.FindLast(element => element.StackState == stackState);
         }
     }
 }
