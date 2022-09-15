@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tracer
+namespace Core
 {
     public class TraceResult
     {
@@ -13,6 +13,7 @@ namespace Tracer
 
         public TraceResult()
         {
+            _threadResult = new ConcurrentDictionary<int, ThreadTraceResult>();
         }
 
         public ThreadTraceResult GetOrAddThread(int threadId)

@@ -5,37 +5,42 @@ using System.Text;
 using System.Threading;
 using System.Diagnostics;
 
-namespace Tracer
+namespace Core
 {
     public class CustomTracer : ITracer
     {
-        private Stopwatch _stopwatch;
-        private StackTrace _stackTrace;
         private TraceResult _traceResult;
 
         public CustomTracer()
         {
             _traceResult = new TraceResult();
+
         }
-        public MethodTraceResult GetTraceResult()
+        public TraceResult GetTraceResult()
         {
-
-            var method = _stackTrace.GetFrame(0).GetMethod();
-            MethodTraceResult result = new MethodTraceResult(method.ReflectedType.Name, 
-                method.Name,  
-                _stopwatch.ElapsedMilliseconds);
-
-            return result;
+            return _traceResult;
         }
 
         public void StartTrace()
         {
             var thread = _traceResult.GetOrAddThread(Thread.CurrentThread.ManagedThreadId);
+
+            StackTrace stackTrace = new StackTrace();
+            var method = stackTrace.GetFrame(1).GetMethod();
+            MethodTraceResult methodTraceResult = new MethodTraceResult(method);
+
+            thread.AddMethod(methodTraceResult);
         }
 
         public void StopTrace()
         {
-            //_stopwatch.Stop();
+            var thread = _traceResult.GetOrAddThread(Thread.CurrentThread.ManagedThreadId);
+
+            StackTrace stackTrace = new StackTrace();
+            var method = stackTrace.GetFrame(1).GetMethod();
+
+            MethodTraceResult methodTraceResult = thread.GetMethodTraceResultByName(method);
+            methodTraceResult.SetTime();
         }
     }
 }

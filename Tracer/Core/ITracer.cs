@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Tracer
+namespace Core
 {
     public interface ITracer
     {
@@ -12,6 +12,6 @@ namespace Tracer
 
         void StopTrace();
 
-        MethodTraceResult GetTraceResult();
+        TraceResult GetTraceResult();
     }
 }

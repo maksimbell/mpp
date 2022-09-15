@@ -1,4 +1,6 @@
-﻿namespace Tracer
+﻿using Core;
+
+namespace Example
 {
     class Program
     {
@@ -8,9 +10,7 @@
             Foo foo = new Foo(tracer);
             foo.MyMethod();
 
-            Console.WriteLine("class: {0}\nmethod: {1}\n{2} ms", tracer.GetTraceResult().ClassName, 
-                tracer.GetTraceResult().MethodName,
-                tracer.GetTraceResult().Elapsed);
+            Console.WriteLine();
         }
     }
 }
