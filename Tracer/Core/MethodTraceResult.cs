@@ -16,7 +16,7 @@ namespace Core
 
         public long Elapsed { get; private set; }
 
-        public List<MethodTraceResult> Methods { get; }
+        public List<MethodTraceResult> ChildMethods { get; }
 
         private Stopwatch _stopwatch;
 
@@ -27,7 +27,8 @@ namespace Core
             ClassName = className;
             MethodName = methodName;
             Elapsed = elapsed;
-            Methods = new List<MethodTraceResult>();
+            ChildMethods = new List<MethodTraceResult>();
+            StackState = stackState;
             _stopwatch = Stopwatch.StartNew();
         }
 
@@ -35,6 +36,11 @@ namespace Core
         {
             _stopwatch.Stop();
             Elapsed = _stopwatch.ElapsedMilliseconds;
+        }
+
+        public void AddChild(MethodTraceResult child)
+        {
+            ChildMethods.Add(child);
         }
     }
 }

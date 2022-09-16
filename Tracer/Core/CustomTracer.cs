@@ -40,12 +40,10 @@ namespace Core
 
             StackTrace stackTrace = new StackTrace();
 
-            //var method = stackTrace.GetFrame(1).GetMethod();
             string stackState = string.Join(" ", stackTrace.ToString().Split(
                 new string[] { Environment.NewLine }, StringSplitOptions.None).Skip(1));
 
-            MethodTraceResult methodTraceResult = thread.GetMethodListId(stackState);
-            methodTraceResult.SetTime();
+            thread.ReplaceMethod(stackState);
         }
     }
 }
