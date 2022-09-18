@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,7 +8,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="XSerializer" Version="0.4.4" />
+    <PackageReference Include="YamlDotNet" Version="12.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Json">
+      <HintPath>..\..\Tracer.Serialization\Json\bin\Debug\net6.0\Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Serialization.Abstractions">
+      <HintPath>..\..\Tracer.Serialization\Xml\bin\Debug\net6.0\Serialization.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Xml">
+      <HintPath>..\..\Tracer.Serialization\Xml\bin\Debug\net6.0\Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="Yaml">
+      <HintPath>..\..\Tracer.Serialization\Yaml\bin\Debug\net6.0\Yaml.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

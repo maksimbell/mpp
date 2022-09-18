@@ -6,11 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Diagnostics;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 namespace Core
 {
+    [DataContract, Serializable]
     public class ThreadTraceResult
     {
+        [DataMember]
         public List<MethodTraceResult> methodsList;
         public ThreadTraceResult(int threadId)
         {

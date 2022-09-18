@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Serialization.Abstractions\Serialization.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>
