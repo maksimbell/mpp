@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
 using System.Xml.Serialization;
-using Newtonsoft.Json;
 using System.Runtime.Serialization;
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace Core
 {
@@ -26,10 +23,10 @@ namespace Core
         [DataMember]
         public List<MethodTraceResult> ChildMethods { get; set; }
 
-        [XmlIgnore, NonSerialized]
+        [XmlIgnore, NonSerialized, YamlIgnore]
         private Stopwatch _stopwatch;
 
-        [XmlIgnore, NonSerialized]
+        [XmlIgnore, NonSerialized, YamlIgnore]
         public string StackState;
 
         public MethodTraceResult(string className, string methodName, string stackState, long elapsed = 0)

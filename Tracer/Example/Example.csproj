@@ -18,17 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Json">
-      <HintPath>..\..\Tracer.Serialization\Json\bin\Debug\net6.0\Json.dll</HintPath>
-    </Reference>
     <Reference Include="Serialization.Abstractions">
       <HintPath>..\..\Tracer.Serialization\Xml\bin\Debug\net6.0\Serialization.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Xml">
-      <HintPath>..\..\Tracer.Serialization\Xml\bin\Debug\net6.0\Xml.dll</HintPath>
-    </Reference>
-    <Reference Include="Yaml">
-      <HintPath>..\..\Tracer.Serialization\Yaml\bin\Debug\net6.0\Yaml.dll</HintPath>
     </Reference>
   </ItemGroup>
 

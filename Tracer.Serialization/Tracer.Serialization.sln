@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Json", "Json\Json.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xml", "Xml\Xml.csproj", "{15B2E1A1-22D9-4432-8B2E-420FA4673FE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yaml", "Yaml\Yaml.csproj", "{D9A6F266-6B80-4B09-B24A-644A98961506}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yaml", "Yaml\Yaml.csproj", "{D9A6F266-6B80-4B09-B24A-644A98961506}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

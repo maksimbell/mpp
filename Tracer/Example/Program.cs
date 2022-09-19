@@ -1,9 +1,9 @@
 ﻿using Core;
 using System.Security.Permissions;
 using XSerializer;
-using Xml;
+/*using Xml;
 using Yaml;
-using Json;
+using Json;*/
 using YamlDotNet.Serialization;
 using System.Collections.Concurrent;
 using Serialization;
@@ -25,11 +25,13 @@ namespace Example
             {
                 var method = type?.GetMethod("Serialize");
                 var obj = Activator.CreateInstance(type!);
+                var format = type?.GetProperty("Format")?.GetValue(obj, null);
                 method?.Invoke(obj, new object?[]
                     {
                     tracer.TraceResult,
-                    new FileStream("./test/" + type, FileMode.Create)
+                    new FileStream("./test/result." + format, FileMode.Create)
                     }
+                    //???
                 );
             }
 

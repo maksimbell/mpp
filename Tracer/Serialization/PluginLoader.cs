@@ -9,24 +9,23 @@ namespace Serialization
 {
     public class PluginLoader
     {
-        private readonly string _path = "../../Tracer.Serialization";
+        private const string PluginPath = "../../../../../Tracer.Serialization/Plugins";
+        private const string AssemblyPath = "/bin/Debug/net6.0";
+        private const string DllExt = "*.dll";
         public List<Type> plugins = new List<Type>();
         public void LoadPlugins()
         {
-            var files = Directory.GetFiles(_path);
+            var files = Directory.GetFiles(PluginPath, "*.dll", SearchOption.TopDirectoryOnly);
+            
             foreach (var filePath in files)
             {
                 var assembly = Assembly.LoadFrom(filePath);
                 var type = assembly.GetExportedTypes()[0];
-                var method = type?.GetMethod("Serialize");
-                //var obj = Activator.CreateInstance(type!);
-                /*method?.Invoke(obj, new object?[]
-                    {
-                    CreateTraceResultDto(result),
-                    new FileStream("../../../results/" + type, FileMode.Create)
-                    }
-                );*/
-                plugins.Add(type!);
+
+                if (!type.IsInterface && type?.GetMethod("Serialize") != null)
+                {
+                    plugins.Add(type!);
+                }
             }
         }
     }

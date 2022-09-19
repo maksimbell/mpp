@@ -18,6 +18,8 @@ namespace Json
             _jsonFormatter = new DataContractJsonSerializer(typeof(TraceResult));
         }
 
+        public string Format => "json";
+
         public void Serialize(TraceResult traceResult, Stream to)
         {
             using var jsonWriter = JsonReaderWriterFactory.CreateJsonWriter(to, Encoding.UTF8, ownsStream: true,

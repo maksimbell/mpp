@@ -8,6 +8,7 @@ namespace Yaml
 {
     public class CustomYamlSerializer : ITraceResultSerializer
     {
+        [YamlIgnore]
         private readonly ISerializer _serializer;
 
         public CustomYamlSerializer()
@@ -16,6 +17,8 @@ namespace Yaml
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
         }
+
+        public string Format => "yaml";
 
         public void Serialize(TraceResult traceResult, Stream to)
         {
