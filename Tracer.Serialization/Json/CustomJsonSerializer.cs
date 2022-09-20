@@ -20,7 +20,7 @@ namespace Json
 
         public string Format => "json";
 
-        public void Serialize(TraceResult traceResult, Stream to)
+        public void Serialize(TraceResultDto traceResult, Stream to)
         {
             using var jsonWriter = JsonReaderWriterFactory.CreateJsonWriter(to, Encoding.UTF8, ownsStream: true,
                 indent: true, indentChars: "     ");

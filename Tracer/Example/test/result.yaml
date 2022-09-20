@@ -1,0 +1,20 @@
+threads:
+  1:
+    methodsList:
+    - className: Method4
+      methodName: TestClass
+      elapsed: 912
+      childMethods:
+      - className: Method5
+        methodName: TestClass
+        elapsed: 505
+        childMethods: []
+    - className: Method1
+      methodName: TestClass
+      elapsed: 1226
+      childMethods:
+      - className: Method2
+        methodName: TestClass
+        elapsed: 1115
+        childMethods: []
+

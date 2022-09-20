@@ -7,9 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Core;
 
-namespace Serialization
+namespace Serialization.Abstractions
 {
-    [DataContract]
+    [KnownType(typeof(TraceResultDto))]
+    [DataContract, Serializable]
     public class TraceResultDto
     {
         [DataMember]

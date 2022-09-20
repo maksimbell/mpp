@@ -4,22 +4,23 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
-namespace Serialization
+namespace Serialization.Abstractions
 {
-    [DataContract]
+    [DataContract, Serializable]
     public class MethodTraceResultDto
     {
-        [DataMember]
+        [DataMember(Name = "class", Order = 0)]
         public string ClassName { get; set; }
 
-        [DataMember]
+        [DataMember(Name = "method", Order = 1)]
         public string MethodName { get; set; }
 
-        [DataMember]
+        [DataMember(Name = "elapsed", Order = 2)]
         public long Elapsed { get; set; }
 
-        [DataMember]
+        [DataMember(Name = "childs", Order = 3)]
         public List<MethodTraceResultDto>? ChildMethods { get; set; }
 
         public MethodTraceResultDto(string className, string methodName, long elapsed, List<MethodTraceResultDto> childs)

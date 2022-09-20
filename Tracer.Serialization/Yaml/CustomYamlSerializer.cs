@@ -20,7 +20,7 @@ namespace Yaml
 
         public string Format => "yaml";
 
-        public void Serialize(TraceResult traceResult, Stream to)
+        public void Serialize(TraceResultDto traceResult, Stream to)
         {
             var yamlString = _serializer.Serialize(traceResult);
             using var streamWriter = new StreamWriter(to);

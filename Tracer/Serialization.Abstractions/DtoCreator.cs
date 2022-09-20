@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core;
 
-namespace Serialization
+namespace Serialization.Abstractions
 {
     public static class DtoCreator
     {

@@ -1,12 +1,6 @@
 ﻿using Core;
-using System.Security.Permissions;
-using XSerializer;
-/*using Xml;
-using Yaml;
-using Json;*/
-using YamlDotNet.Serialization;
-using System.Collections.Concurrent;
 using Serialization;
+using Serialization.Abstractions;
 
 namespace Example
 {
@@ -17,9 +11,14 @@ namespace Example
             PluginLoader pluginLoader = new PluginLoader();
             pluginLoader.LoadPlugins();
 
-            CustomTracer tracer = new CustomTracer();
-            Foo foo = new Foo(tracer);
-            foo.MyMethod();
+            ITracer tracer = new CustomTracer();
+            /*Foo foo = new Foo(tracer);
+            foo.MyMethod();*/
+
+            TestClass test = new TestClass(tracer);
+            test.Method1();
+
+            //TraceResultDto testDto = DtoCreator.CreateTraceResultDto(tracer.GetTraceResult());
 
             foreach (Type type in pluginLoader.plugins)
             {
@@ -29,7 +28,7 @@ namespace Example
                 method?.Invoke(obj, new object?[]
                     {
                     DtoCreator.CreateTraceResultDto(tracer.GetTraceResult()),
-                    new FileStream("./test/result." + format, FileMode.Create)
+                    new FileStream("../../../test/result." + format, FileMode.Create)
                     }
                 );
             }
