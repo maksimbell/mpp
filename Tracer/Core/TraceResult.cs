@@ -13,21 +13,21 @@ namespace Core
     public class TraceResult
     {
         [DataMember]
-        public ConcurrentDictionary<int, ThreadTraceResult> _threadResult { get; }//!!!!!!!!!
+        public ConcurrentDictionary<int, ThreadTraceResult> Threads;
 
         public TraceResult()
         {
-            _threadResult = new ConcurrentDictionary<int, ThreadTraceResult>();
+            Threads = new ConcurrentDictionary<int, ThreadTraceResult>();
         }
 
         public ThreadTraceResult GetOrAddThread(int threadId)
         {
-            return _threadResult.GetOrAdd(threadId, new ThreadTraceResult(threadId));
+            return Threads.GetOrAdd(threadId, new ThreadTraceResult(threadId));
         }
 
-        public ConcurrentDictionary<int, ThreadTraceResult> GetThreadResult()
+        /*public ConcurrentDictionary<int, ThreadTraceResult> GetThreadResult()
         {
-            return _threadResult;
-        }
+            return _threads;
+        }*/
     }
 }

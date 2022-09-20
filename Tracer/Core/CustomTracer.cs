@@ -9,21 +9,21 @@ namespace Core
 {
     public class CustomTracer : ITracer
     {
-        public TraceResult TraceResult { get; }
+        private readonly TraceResult _traceResult;
 
         public CustomTracer()
         {
-            TraceResult = new TraceResult();
+            _traceResult = new TraceResult();
 
         }
         public TraceResult GetTraceResult()
         {
-            return TraceResult;
+            return _traceResult;
         }
 
         public void StartTrace()
         {
-            var thread = TraceResult.GetOrAddThread(Thread.CurrentThread.ManagedThreadId);
+            var thread = _traceResult.GetOrAddThread(Thread.CurrentThread.ManagedThreadId);
 
             StackTrace stackTrace = new StackTrace();
 
@@ -36,7 +36,7 @@ namespace Core
 
         public void StopTrace()
         {
-            var thread = TraceResult.GetOrAddThread(Thread.CurrentThread.ManagedThreadId);
+            var thread = _traceResult.GetOrAddThread(Thread.CurrentThread.ManagedThreadId);
 
             StackTrace stackTrace = new StackTrace();
 

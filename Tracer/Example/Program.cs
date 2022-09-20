@@ -21,28 +21,18 @@ namespace Example
             Foo foo = new Foo(tracer);
             foo.MyMethod();
 
-            foreach(Type type in pluginLoader.plugins)
+            foreach (Type type in pluginLoader.plugins)
             {
                 var method = type?.GetMethod("Serialize");
                 var obj = Activator.CreateInstance(type!);
                 var format = type?.GetProperty("Format")?.GetValue(obj, null);
                 method?.Invoke(obj, new object?[]
                     {
-                    tracer.TraceResult,
+                    DtoCreator.CreateTraceResultDto(tracer.GetTraceResult()),
                     new FileStream("./test/result." + format, FileMode.Create)
                     }
-                    //???
                 );
             }
-
-            /*CustomYamlSerializer yamlSerializer = new CustomYamlSerializer();
-            yamlSerializer.Serialize(tracer.TraceResult, new FileStream("./test/yaml.txt", FileMode.OpenOrCreate));
-
-            CustomJsonSerializer jsonSerializer = new CustomJsonSerializer();
-            jsonSerializer.Serialize(tracer.TraceResult, new FileStream("./test/json.txt", FileMode.OpenOrCreate));
-
-            CustomXmlSerializer xmlSerializer = new CustomXmlSerializer();
-            xmlSerializer.Serialize(tracer.TraceResult, new FileStream("./test/xml.txt", FileMode.OpenOrCreate));*/
         }
     }
 }

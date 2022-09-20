@@ -15,34 +15,34 @@ namespace Core
     public class ThreadTraceResult
     {
         [DataMember]
-        public List<MethodTraceResult> methodsList;
+        public List<MethodTraceResult> MethodsList;
         public ThreadTraceResult(int threadId)
         {
-            methodsList = new List<MethodTraceResult>();
+            MethodsList = new List<MethodTraceResult>();
         }
 
         public void AddMethod(MethodTraceResult methodTraceResult)
         {
-            methodsList.Add(methodTraceResult);
+            MethodsList.Add(methodTraceResult);
         }
 
         public MethodTraceResult GetMethodListId(string stackState)
         {
-            return methodsList.FindLast(element => element.StackState == stackState);
+            return MethodsList.FindLast(element => element.StackTrace == stackState);
         }
 
         public void ReplaceMethod(string stackState)
         {
-            int id = methodsList.FindLastIndex(element => element.StackState == stackState);
-            MethodTraceResult methodTraceResult = methodsList[id];
+            int id = MethodsList.FindLastIndex(element => element.StackTrace == stackState);
+            MethodTraceResult methodTraceResult = MethodsList[id];
             methodTraceResult.SetTime();
 
-            methodsList.RemoveAt(id);
+            MethodsList.RemoveAt(id);
 
             StackTrace stackTrace = new StackTrace();
             string parentMethodName = stackTrace.GetFrame(3).GetMethod().Name;
 
-            foreach(var method in methodsList)
+            foreach(var method in MethodsList)
             {
                 if(method.MethodName == parentMethodName)
                 {
@@ -51,7 +51,7 @@ namespace Core
                 }
             }
 
-            methodsList.Add(methodTraceResult);
+            MethodsList.Add(methodTraceResult);
         }
     }
 }

@@ -9,7 +9,7 @@ using YamlDotNet.Serialization.NamingConventions;
 namespace Core
 {
     [DataContract, Serializable]
-    public class MethodTraceResult//i
+    public class MethodTraceResult
     {
         [DataMember]
         public string ClassName { get; set; }
@@ -18,7 +18,7 @@ namespace Core
         public string MethodName { get; set; }
 
         [DataMember]
-        public long Elapsed { get; private set; }
+        public long Elapsed { get; set; }
 
         [DataMember]
         public List<MethodTraceResult> ChildMethods { get; set; }
@@ -26,8 +26,8 @@ namespace Core
         [XmlIgnore, NonSerialized, YamlIgnore]
         private Stopwatch _stopwatch;
 
-        [XmlIgnore, NonSerialized, YamlIgnore]
-        public string StackState;
+        [XmlIgnore, YamlIgnore]
+        public string StackTrace { get; }
 
         public MethodTraceResult(string className, string methodName, string stackState, long elapsed = 0)
         {
@@ -35,7 +35,7 @@ namespace Core
             MethodName = methodName;
             Elapsed = elapsed;
             ChildMethods = new List<MethodTraceResult>();
-            StackState = stackState;
+            StackTrace = stackState;
             _stopwatch = Stopwatch.StartNew();
         }
 
