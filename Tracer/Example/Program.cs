@@ -16,10 +16,10 @@ namespace Example
             foo.MyMethod();*/
 
             TestClass test = new TestClass(tracer);
-            test.Method1();
+            test.StartTest();
 
             //TraceResultDto testDto = DtoCreator.CreateTraceResultDto(tracer.GetTraceResult());
-
+                        
             foreach (Type type in pluginLoader.plugins)
             {
                 var method = type?.GetMethod("Serialize");

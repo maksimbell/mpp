@@ -3,16 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{2580169A-AFB7-422F-A3CD-A93D30FA87BF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracer.Core", "Core\Tracer.Core.csproj", "{2580169A-AFB7-422F-A3CD-A93D30FA87BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "Example\Example.csproj", "{411A09FE-42FE-4532-937E-C4E7088D57EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tracer.Example", "Example\Tracer.Example.csproj", "{411A09FE-42FE-4532-937E-C4E7088D57EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization.Abstractions", "Serialization.Abstractions\Serialization.Abstractions.csproj", "{82F9561C-6BFC-4A1D-BA56-8C6FE1A7903A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tracer.Serialization.Abstractions", "Serialization.Abstractions\Tracer.Serialization.Abstractions.csproj", "{82F9561C-6BFC-4A1D-BA56-8C6FE1A7903A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{2580169A-AFB7-422F-A3CD-A93D30FA87BF} = {2580169A-AFB7-422F-A3CD-A93D30FA87BF}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization", "Serialization\Serialization.csproj", "{FB29E5D8-0FED-4270-96A1-4D9C406FCA47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tracer.Serialization", "Serialization\Tracer.Serialization.csproj", "{FB29E5D8-0FED-4270-96A1-4D9C406FCA47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

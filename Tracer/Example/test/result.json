@@ -2,18 +2,18 @@
      "__type": "TraceResultDto:#Serialization.Abstractions",
      "Threads": [
           {
-               "Key": 1,
+               "Key": 9,
                "Value": {
                     "methodsList": [
                          {
                               "class": "Method4",
                               "method": "TestClass",
-                              "elapsed": 912,
+                              "elapsed": 909,
                               "childs": [
                                    {
                                         "class": "Method5",
                                         "method": "TestClass",
-                                        "elapsed": 505,
+                                        "elapsed": 502,
                                         "childs": [ ]
                                    }
                               ]
@@ -21,12 +21,58 @@
                          {
                               "class": "Method1",
                               "method": "TestClass",
-                              "elapsed": 1226,
+                              "elapsed": 1224,
                               "childs": [
                                    {
                                         "class": "Method2",
                                         "method": "TestClass",
-                                        "elapsed": 1115,
+                                        "elapsed": 1111,
+                                        "childs": [ ]
+                                   }
+                              ]
+                         }
+                    ]
+               }
+          },
+          {
+               "Key": 10,
+               "Value": {
+                    "methodsList": [
+                         {
+                              "class": "Method4",
+                              "method": "TestClass",
+                              "elapsed": 906,
+                              "childs": [
+                                   {
+                                        "class": "Method5",
+                                        "method": "TestClass",
+                                        "elapsed": 500,
+                                        "childs": [ ]
+                                   }
+                              ]
+                         },
+                         {
+                              "class": "Method2",
+                              "method": "TestClass",
+                              "elapsed": 1111,
+                              "childs": [ ]
+                         }
+                    ]
+               }
+          },
+          {
+               "Key": 11,
+               "Value": {
+                    "methodsList": [
+                         {
+                              "class": "Method4",
+                              "method": "TestClass",
+                              "elapsed": 928,
+                              "childs": [
+                                   {
+                                        "class": "Method5",
+                                        "method": "TestClass",
+                                        "elapsed": 519,
                                         "childs": [ ]
                                    }
                               ]

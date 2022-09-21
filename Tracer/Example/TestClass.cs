@@ -16,6 +16,36 @@ namespace Example
             _tracer = tracer;
         }
 
+        public void StartTest()
+        {
+            List<Thread> threads = new List<Thread>();
+
+            for(int i = 0; i < 3; i++)
+            {
+                Thread thread;
+                switch (i)
+                {
+                    case 0:
+                        thread = new Thread(Method1);
+                        break;
+                    case 1:
+                        thread = new Thread(Method2);
+                        break;
+                    default:
+                        thread = new Thread(Method3);
+                        break;
+                }
+
+                threads.Add(thread);    
+                thread.Start(); 
+            }
+
+            foreach(Thread thread in threads)
+            {
+                thread.Join();
+            }
+        }
+
         public void Method1()
         {
             _tracer.StartTrace();
