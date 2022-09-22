@@ -16,9 +16,14 @@ namespace Core
     {
         [DataMember]
         public List<MethodTraceResult> MethodsList;
+
+        [DataMember]
+        public long Elapsed { get; set; }   
+
         public ThreadTraceResult(int threadId)
         {
             MethodsList = new List<MethodTraceResult>();
+            Elapsed = 0;
         }
 
         public void AddMethod(MethodTraceResult methodTraceResult)
@@ -51,7 +56,8 @@ namespace Core
                 }
             }
 
-            MethodsList.Add(methodTraceResult);
+            MethodsList.Add(methodTraceResult); 
+            Elapsed = methodTraceResult.Elapsed;
         }
     }
 }
