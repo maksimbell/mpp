@@ -2,8 +2,9 @@
 <TraceResult xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:d1p1="http://schemas.datacontract.org/2004/07/Serialization.Abstractions" i:type="d1p1:TraceResultDto" xmlns="http://schemas.datacontract.org/2004/07/Core">
      <d1p1:Threads xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
           <d2p1:KeyValueOfintThreadTraceResultDtogzYgOC0z>
-               <d2p1:Key>8</d2p1:Key>
+               <d2p1:Key>9</d2p1:Key>
                <d2p1:Value>
+                    <d1p1:Elapsed>2149</d1p1:Elapsed>
                     <d1p1:methodsList>
                          <d1p1:MethodTraceResultDto>
                               <d1p1:class>Method4</d1p1:class>
@@ -21,12 +22,12 @@
                          <d1p1:MethodTraceResultDto>
                               <d1p1:class>Method1</d1p1:class>
                               <d1p1:method>TestClass</d1p1:method>
-                              <d1p1:elapsed>1233</d1p1:elapsed>
+                              <d1p1:elapsed>1228</d1p1:elapsed>
                               <d1p1:childs>
                                    <d1p1:MethodTraceResultDto>
                                         <d1p1:class>Method2</d1p1:class>
                                         <d1p1:method>TestClass</d1p1:method>
-                                        <d1p1:elapsed>1123</d1p1:elapsed>
+                                        <d1p1:elapsed>1125</d1p1:elapsed>
                                         <d1p1:childs />
                                    </d1p1:MethodTraceResultDto>
                               </d1p1:childs>
@@ -37,6 +38,7 @@
           <d2p1:KeyValueOfintThreadTraceResultDtogzYgOC0z>
                <d2p1:Key>10</d2p1:Key>
                <d2p1:Value>
+                    <d1p1:Elapsed>2057</d1p1:Elapsed>
                     <d1p1:methodsList>
                          <d1p1:MethodTraceResultDto>
                               <d1p1:class>Method4</d1p1:class>
@@ -54,7 +56,7 @@
                          <d1p1:MethodTraceResultDto>
                               <d1p1:class>Method2</d1p1:class>
                               <d1p1:method>TestClass</d1p1:method>
-                              <d1p1:elapsed>1124</d1p1:elapsed>
+                              <d1p1:elapsed>1135</d1p1:elapsed>
                               <d1p1:childs />
                          </d1p1:MethodTraceResultDto>
                     </d1p1:methodsList>
@@ -63,16 +65,17 @@
           <d2p1:KeyValueOfintThreadTraceResultDtogzYgOC0z>
                <d2p1:Key>11</d2p1:Key>
                <d2p1:Value>
+                    <d1p1:Elapsed>934</d1p1:Elapsed>
                     <d1p1:methodsList>
                          <d1p1:MethodTraceResultDto>
                               <d1p1:class>Method4</d1p1:class>
                               <d1p1:method>TestClass</d1p1:method>
-                              <d1p1:elapsed>927</d1p1:elapsed>
+                              <d1p1:elapsed>934</d1p1:elapsed>
                               <d1p1:childs>
                                    <d1p1:MethodTraceResultDto>
                                         <d1p1:class>Method5</d1p1:class>
                                         <d1p1:method>TestClass</d1p1:method>
-                                        <d1p1:elapsed>519</d1p1:elapsed>
+                                        <d1p1:elapsed>517</d1p1:elapsed>
                                         <d1p1:childs />
                                    </d1p1:MethodTraceResultDto>
                               </d1p1:childs>

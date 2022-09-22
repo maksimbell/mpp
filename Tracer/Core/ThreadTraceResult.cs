@@ -57,7 +57,7 @@ namespace Core
             }
 
             MethodsList.Add(methodTraceResult); 
-            Elapsed = methodTraceResult.Elapsed;
+            Elapsed += methodTraceResult.Elapsed;
         }
     }
 }

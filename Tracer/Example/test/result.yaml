@@ -1,5 +1,5 @@
 threads:
-  8:
+  9:
     methodsList:
     - className: Method4
       methodName: TestClass
@@ -11,12 +11,13 @@ threads:
         childMethods: []
     - className: Method1
       methodName: TestClass
-      elapsed: 1233
+      elapsed: 1228
       childMethods:
       - className: Method2
         methodName: TestClass
-        elapsed: 1123
+        elapsed: 1125
         childMethods: []
+    elapsed: 2149
   10:
     methodsList:
     - className: Method4
@@ -29,16 +30,18 @@ threads:
         childMethods: []
     - className: Method2
       methodName: TestClass
-      elapsed: 1124
+      elapsed: 1135
       childMethods: []
+    elapsed: 2057
   11:
     methodsList:
     - className: Method4
       methodName: TestClass
-      elapsed: 927
+      elapsed: 934
       childMethods:
       - className: Method5
         methodName: TestClass
-        elapsed: 519
+        elapsed: 517
         childMethods: []
+    elapsed: 934
 

@@ -21,7 +21,8 @@ namespace Serialization.Abstractions
             var threads = new ConcurrentDictionary<int, ThreadTraceResultDto>();
             foreach (var threadKey in threadResults.Keys)
             {
-                threads.GetOrAdd(threadKey, new ThreadTraceResultDto(AddMethodTraceResultDto(threadResults[threadKey].MethodsList)));
+                threads.GetOrAdd(threadKey, new ThreadTraceResultDto(AddMethodTraceResultDto(threadResults[threadKey].MethodsList),
+                    threadResults[threadKey].Elapsed));
             }
             
             return threads;

@@ -2,8 +2,9 @@
      "__type": "TraceResultDto:#Serialization.Abstractions",
      "Threads": [
           {
-               "Key": 8,
+               "Key": 9,
                "Value": {
+                    "Elapsed": 2149,
                     "methodsList": [
                          {
                               "class": "Method4",
@@ -21,12 +22,12 @@
                          {
                               "class": "Method1",
                               "method": "TestClass",
-                              "elapsed": 1233,
+                              "elapsed": 1228,
                               "childs": [
                                    {
                                         "class": "Method2",
                                         "method": "TestClass",
-                                        "elapsed": 1123,
+                                        "elapsed": 1125,
                                         "childs": [ ]
                                    }
                               ]
@@ -37,6 +38,7 @@
           {
                "Key": 10,
                "Value": {
+                    "Elapsed": 2057,
                     "methodsList": [
                          {
                               "class": "Method4",
@@ -54,7 +56,7 @@
                          {
                               "class": "Method2",
                               "method": "TestClass",
-                              "elapsed": 1124,
+                              "elapsed": 1135,
                               "childs": [ ]
                          }
                     ]
@@ -63,16 +65,17 @@
           {
                "Key": 11,
                "Value": {
+                    "Elapsed": 934,
                     "methodsList": [
                          {
                               "class": "Method4",
                               "method": "TestClass",
-                              "elapsed": 927,
+                              "elapsed": 934,
                               "childs": [
                                    {
                                         "class": "Method5",
                                         "method": "TestClass",
-                                        "elapsed": 519,
+                                        "elapsed": 517,
                                         "childs": [ ]
                                    }
                               ]

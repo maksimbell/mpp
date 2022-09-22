@@ -15,9 +15,10 @@ namespace Serialization.Abstractions
 
         [DataMember]
         public long Elapsed { get; set; }
-        public ThreadTraceResultDto(List<MethodTraceResultDto> methods)
+        public ThreadTraceResultDto(List<MethodTraceResultDto> methods, long elapsed)
         {
             methodsList = methods;
+            Elapsed = elapsed;  
         }
     }
 }
