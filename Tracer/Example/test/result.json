@@ -1,81 +1,33 @@
 {
      "__type": "TraceResultDto:#Serialization.Abstractions",
-     "Threads": [
+     "threads": [
           {
-               "Key": 9,
+               "Key": 1,
                "Value": {
-                    "Elapsed": 2149,
-                    "methodsList": [
+                    "elapsed": 2043,
+                    "methods": [
                          {
-                              "class": "Method4",
+                              "class": "Method6",
                               "method": "TestClass",
-                              "elapsed": 921,
+                              "elapsed": 1024,
                               "childs": [
                                    {
-                                        "class": "Method5",
+                                        "class": "Method7",
                                         "method": "TestClass",
-                                        "elapsed": 514,
+                                        "elapsed": 515,
                                         "childs": [ ]
                                    }
                               ]
                          },
                          {
-                              "class": "Method1",
+                              "class": "Method6",
                               "method": "TestClass",
-                              "elapsed": 1228,
+                              "elapsed": 1019,
                               "childs": [
                                    {
-                                        "class": "Method2",
+                                        "class": "Method7",
                                         "method": "TestClass",
-                                        "elapsed": 1125,
-                                        "childs": [ ]
-                                   }
-                              ]
-                         }
-                    ]
-               }
-          },
-          {
-               "Key": 10,
-               "Value": {
-                    "Elapsed": 2057,
-                    "methodsList": [
-                         {
-                              "class": "Method4",
-                              "method": "TestClass",
-                              "elapsed": 922,
-                              "childs": [
-                                   {
-                                        "class": "Method5",
-                                        "method": "TestClass",
-                                        "elapsed": 514,
-                                        "childs": [ ]
-                                   }
-                              ]
-                         },
-                         {
-                              "class": "Method2",
-                              "method": "TestClass",
-                              "elapsed": 1135,
-                              "childs": [ ]
-                         }
-                    ]
-               }
-          },
-          {
-               "Key": 11,
-               "Value": {
-                    "Elapsed": 934,
-                    "methodsList": [
-                         {
-                              "class": "Method4",
-                              "method": "TestClass",
-                              "elapsed": 934,
-                              "childs": [
-                                   {
-                                        "class": "Method5",
-                                        "method": "TestClass",
-                                        "elapsed": 517,
+                                        "elapsed": 505,
                                         "childs": [ ]
                                    }
                               ]

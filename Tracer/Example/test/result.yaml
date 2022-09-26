@@ -1,47 +1,21 @@
 threads:
-  9:
+  1:
     methodsList:
-    - className: Method4
+    - className: Method6
       methodName: TestClass
-      elapsed: 921
+      elapsed: 1024
       childMethods:
-      - className: Method5
+      - className: Method7
         methodName: TestClass
-        elapsed: 514
+        elapsed: 515
         childMethods: []
-    - className: Method1
+    - className: Method6
       methodName: TestClass
-      elapsed: 1228
+      elapsed: 1019
       childMethods:
-      - className: Method2
+      - className: Method7
         methodName: TestClass
-        elapsed: 1125
+        elapsed: 505
         childMethods: []
-    elapsed: 2149
-  10:
-    methodsList:
-    - className: Method4
-      methodName: TestClass
-      elapsed: 922
-      childMethods:
-      - className: Method5
-        methodName: TestClass
-        elapsed: 514
-        childMethods: []
-    - className: Method2
-      methodName: TestClass
-      elapsed: 1135
-      childMethods: []
-    elapsed: 2057
-  11:
-    methodsList:
-    - className: Method4
-      methodName: TestClass
-      elapsed: 934
-      childMethods:
-      - className: Method5
-        methodName: TestClass
-        elapsed: 517
-        childMethods: []
-    elapsed: 934
+    elapsed: 2043
 

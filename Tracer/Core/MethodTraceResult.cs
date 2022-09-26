@@ -1,41 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Xml.Serialization;
-using System.Runtime.Serialization;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace Core
 {
-    [DataContract, Serializable]
     public class MethodTraceResult
     {
-        [DataMember]
         public string ClassName { get; set; }
 
-        [DataMember]
         public string MethodName { get; set; }
 
-        [DataMember]
         public long Elapsed { get; set; }
 
-        [DataMember]
         public List<MethodTraceResult> ChildMethods { get; set; }
 
-        [XmlIgnore, NonSerialized, YamlIgnore]
         private Stopwatch _stopwatch;
 
-        [XmlIgnore, YamlIgnore]
-        public string StackTrace { get; }
+        public string StackState { get; }
 
-        public MethodTraceResult(string className, string methodName, string stackState, long elapsed = 0)
+        public MethodTraceResult Parent { get; set; }
+
+        public MethodTraceResult(string className, string methodName, string stackState, 
+            MethodTraceResult parent, long elapsed = 0)
         {
             ClassName = className;
             MethodName = methodName;
             Elapsed = elapsed;
             ChildMethods = new List<MethodTraceResult>();
-            StackTrace = stackState;
+            StackState = stackState;
+            Parent = parent;
             _stopwatch = Stopwatch.StartNew();
         }
 

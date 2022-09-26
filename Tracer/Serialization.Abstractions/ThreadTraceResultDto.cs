@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
+using System.Xml.Serialization;
 
 namespace Serialization.Abstractions
 {
     [DataContract, Serializable]
     public class ThreadTraceResultDto
     {
-        [DataMember]
+        [DataMember(Name = "elapsed", Order = 0)]
+        public long Elapsed { get; set; }
+
+        [DataMember(Name = "methods", Order = 1)]
         public List<MethodTraceResultDto> methodsList;
 
-        [DataMember]
-        public long Elapsed { get; set; }
         public ThreadTraceResultDto(List<MethodTraceResultDto> methods, long elapsed)
         {
             methodsList = methods;

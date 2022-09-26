@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Diagnostics;
 
@@ -31,7 +29,10 @@ namespace Core
             string stackState = string.Join(" ", stackTrace.ToString().Split(
                 new string[] { Environment.NewLine }, StringSplitOptions.None).Skip(1));
 
-            thread.AddMethod(new MethodTraceResult(method.ReflectedType.Name, method.Name, stackState));
+            thread.Current = new MethodTraceResult(method.ReflectedType.Name, method.Name, stackState, 
+                thread.Current);
+
+            thread.AddMethod(thread.Current);
         }
 
         public void StopTrace()
@@ -43,7 +44,7 @@ namespace Core
             string stackState = string.Join(" ", stackTrace.ToString().Split(
                 new string[] { Environment.NewLine }, StringSplitOptions.None).Skip(1));
 
-            thread.ReplaceMethod(stackState);
+            thread.CreateTreeNode(stackState);
         }
     }
 }

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Concurrent;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Core;
 
 namespace Serialization.Abstractions
 {
@@ -13,7 +7,7 @@ namespace Serialization.Abstractions
     [DataContract, Serializable]
     public class TraceResultDto
     {
-        [DataMember]
+        [DataMember(Name = "threads")]
         public ConcurrentDictionary<int, ThreadTraceResultDto> Threads;
 
         public TraceResultDto(ConcurrentDictionary<int, ThreadTraceResultDto> threads)

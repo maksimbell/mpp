@@ -1,19 +1,10 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
+﻿using System.Collections.Concurrent;
 
 namespace Core
 {
-    [DataContract,Serializable]
     public class TraceResult
     {
-        [DataMember]
-        public ConcurrentDictionary<int, ThreadTraceResult> Threads;
+        public readonly ConcurrentDictionary<int, ThreadTraceResult> Threads;
 
         public TraceResult()
         {
@@ -24,10 +15,5 @@ namespace Core
         {
             return Threads.GetOrAdd(threadId, new ThreadTraceResult(threadId));
         }
-
-        /*public ConcurrentDictionary<int, ThreadTraceResult> GetThreadResult()
-        {
-            return _threads;
-        }*/
     }
 }

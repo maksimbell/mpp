@@ -1,29 +1,20 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Xml.Serialization;
-using System.Runtime.Serialization;
 
 namespace Core
 {
-    [DataContract, Serializable]
     public class ThreadTraceResult
     {
-        [DataMember]
-        public List<MethodTraceResult> MethodsList;
+        public readonly List<MethodTraceResult> MethodsList;
 
-        [DataMember]
+        public MethodTraceResult Current { get; set; }
         public long Elapsed { get; set; }   
 
         public ThreadTraceResult(int threadId)
         {
             MethodsList = new List<MethodTraceResult>();
             Elapsed = 0;
+            Current = null;
         }
 
         public void AddMethod(MethodTraceResult methodTraceResult)
@@ -33,31 +24,60 @@ namespace Core
 
         public MethodTraceResult GetMethodListId(string stackState)
         {
-            return MethodsList.FindLast(element => element.StackTrace == stackState);
+            return MethodsList.FindLast(element => element.StackState == stackState);
         }
 
         public void ReplaceMethod(string stackState)
         {
-            int id = MethodsList.FindLastIndex(element => element.StackTrace == stackState);
+            int id = MethodsList.FindLastIndex(element => element.StackState == stackState);
             MethodTraceResult methodTraceResult = MethodsList[id];
             methodTraceResult.SetTime();
 
             MethodsList.RemoveAt(id);
 
             StackTrace stackTrace = new StackTrace();
-            string parentMethodName = stackTrace.GetFrame(3).GetMethod().Name;
 
-            foreach(var method in MethodsList)
-            {
-                if(method.MethodName == parentMethodName)
+            int i = 3;
+            bool IsAncestor = false;
+
+            while(i < stackTrace.FrameCount && !IsAncestor) {
+                string parentMethodName = stackTrace.GetFrame(i).GetMethod().Name;
+
+                foreach (var method in MethodsList)
                 {
-                    method.AddChild(methodTraceResult);
-                    return;
+                    if (method.MethodName == parentMethodName)
+                    {
+                        method.AddChild(methodTraceResult);
+                        IsAncestor = true;
+                    }
                 }
+                i++;
             }
 
-            MethodsList.Add(methodTraceResult); 
-            Elapsed += methodTraceResult.Elapsed;
+            if (!IsAncestor)
+            {
+                MethodsList.Add(methodTraceResult);
+                Elapsed += methodTraceResult.Elapsed;
+            }
+        }
+
+        public void CreateTreeNode(string stackState)
+        {
+            int id = MethodsList.FindLastIndex(element => element.StackState == stackState);
+            MethodTraceResult methodTraceResult = MethodsList[id];
+            methodTraceResult.SetTime();
+
+            MethodsList.RemoveAt(id);
+
+            if (Current.Parent != null) {
+                Current.Parent.ChildMethods.Add(Current);
+            }
+            else
+            {
+                MethodsList.Add(Current);
+                Elapsed += Current.Elapsed;
+            }
+            Current = Current.Parent;
         }
     }
 }

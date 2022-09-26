@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Core;
+﻿using Core;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace Example
 {
@@ -56,10 +53,7 @@ namespace Example
 
         public void Method2()
         {
-            _tracer.StartTrace();
-            Thread.Sleep(200);
             Method3();
-            _tracer.StopTrace(); 
         }
 
         public void Method3()
@@ -81,5 +75,28 @@ namespace Example
             Thread.Sleep(500);
             _tracer.StopTrace();
         }
+
+        public void Method6()
+        {
+            _tracer.StartTrace();
+            Thread.Sleep(500);
+            Method7();
+            _tracer.StopTrace();
+        }
+
+        public void Method7()
+        {
+            _tracer.StartTrace();
+            Thread.Sleep(500);
+            _tracer.StopTrace();
+        }
+
+        public void Method8()
+        {
+            Method6();
+            Thread.Sleep(100);
+            Method6();
+        }
+
     }
 }

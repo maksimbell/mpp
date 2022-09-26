@@ -12,13 +12,9 @@ namespace Example
             pluginLoader.LoadPlugins();
 
             ITracer tracer = new CustomTracer();
-            /*Foo foo = new Foo(tracer);
-            foo.MyMethod();*/
 
             TestClass test = new TestClass(tracer);
-            test.StartTest();
-
-            //TraceResultDto testDto = DtoCreator.CreateTraceResultDto(tracer.GetTraceResult());
+            test.Method8();
                         
             foreach (Type type in pluginLoader.plugins)
             {
