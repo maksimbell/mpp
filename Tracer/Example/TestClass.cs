@@ -1,6 +1,4 @@
 ﻿using Core;
-using System.Diagnostics;
-using System.Reflection;
 
 namespace Example
 {
@@ -15,32 +13,19 @@ namespace Example
 
         public void StartTest()
         {
-            List<Thread> threads = new List<Thread>();
 
-            for(int i = 0; i < 3; i++)
-            {
-                Thread thread;
-                switch (i)
-                {
-                    case 0:
-                        thread = new Thread(Method1);
-                        break;
-                    case 1:
-                        thread = new Thread(Method2);
-                        break;
-                    default:
-                        thread = new Thread(Method3);
-                        break;
-                }
+            Thread thread1 = new Thread(Method1);
+            Thread thread2 = new Thread(Method2);
+            Thread thread3 = new Thread(Method4);
 
-                threads.Add(thread);    
-                thread.Start(); 
-            }
+            thread1.Start();
+            thread2.Start();
+            thread3.Start();
 
-            foreach(Thread thread in threads)
-            {
-                thread.Join();
-            }
+            thread1.Join();
+            thread2.Join();
+            thread3.Join();
+
         }
 
         public void Method1()
@@ -54,11 +39,14 @@ namespace Example
         public void Method2()
         {
             Method3();
+            Thread.Sleep(100);
         }
 
         public void Method3()
         {
-            Method4();
+            _tracer.StartTrace();
+            Method4(); 
+            _tracer.StopTrace();
         }
 
         public void Method4()
@@ -96,6 +84,14 @@ namespace Example
             Method6();
             Thread.Sleep(100);
             Method6();
+        }
+
+        public void Method10()
+        {
+            _tracer.StartTrace();
+            Thread.Sleep(100);
+            Method10();
+            _tracer.StopTrace();
         }
 
     }

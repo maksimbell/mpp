@@ -2,30 +2,80 @@
 <TraceResult xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns:d1p1="http://schemas.datacontract.org/2004/07/Serialization.Abstractions" i:type="d1p1:TraceResultDto" xmlns="http://schemas.datacontract.org/2004/07/Core">
      <d1p1:threads xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
           <d2p1:KeyValueOfintThreadTraceResultDtogzYgOC0z>
-               <d2p1:Key>1</d2p1:Key>
+               <d2p1:Key>8</d2p1:Key>
                <d2p1:Value>
-                    <d1p1:elapsed>2043</d1p1:elapsed>
+                    <d1p1:elapsed>1120</d1p1:elapsed>
                     <d1p1:methods>
                          <d1p1:MethodTraceResultDto>
-                              <d1p1:class>Method6</d1p1:class>
+                              <d1p1:class>Method1</d1p1:class>
                               <d1p1:method>TestClass</d1p1:method>
-                              <d1p1:elapsed>1024</d1p1:elapsed>
+                              <d1p1:elapsed>1120</d1p1:elapsed>
                               <d1p1:childs>
                                    <d1p1:MethodTraceResultDto>
-                                        <d1p1:class>Method7</d1p1:class>
+                                        <d1p1:class>Method3</d1p1:class>
                                         <d1p1:method>TestClass</d1p1:method>
-                                        <d1p1:elapsed>515</d1p1:elapsed>
-                                        <d1p1:childs />
+                                        <d1p1:elapsed>909</d1p1:elapsed>
+                                        <d1p1:childs>
+                                             <d1p1:MethodTraceResultDto>
+                                                  <d1p1:class>Method4</d1p1:class>
+                                                  <d1p1:method>TestClass</d1p1:method>
+                                                  <d1p1:elapsed>909</d1p1:elapsed>
+                                                  <d1p1:childs>
+                                                       <d1p1:MethodTraceResultDto>
+                                                            <d1p1:class>Method5</d1p1:class>
+                                                            <d1p1:method>TestClass</d1p1:method>
+                                                            <d1p1:elapsed>502</d1p1:elapsed>
+                                                            <d1p1:childs />
+                                                       </d1p1:MethodTraceResultDto>
+                                                  </d1p1:childs>
+                                             </d1p1:MethodTraceResultDto>
+                                        </d1p1:childs>
                                    </d1p1:MethodTraceResultDto>
                               </d1p1:childs>
                          </d1p1:MethodTraceResultDto>
+                    </d1p1:methods>
+               </d2p1:Value>
+          </d2p1:KeyValueOfintThreadTraceResultDtogzYgOC0z>
+          <d2p1:KeyValueOfintThreadTraceResultDtogzYgOC0z>
+               <d2p1:Key>9</d2p1:Key>
+               <d2p1:Value>
+                    <d1p1:elapsed>919</d1p1:elapsed>
+                    <d1p1:methods>
                          <d1p1:MethodTraceResultDto>
-                              <d1p1:class>Method6</d1p1:class>
+                              <d1p1:class>Method3</d1p1:class>
                               <d1p1:method>TestClass</d1p1:method>
-                              <d1p1:elapsed>1019</d1p1:elapsed>
+                              <d1p1:elapsed>919</d1p1:elapsed>
                               <d1p1:childs>
                                    <d1p1:MethodTraceResultDto>
-                                        <d1p1:class>Method7</d1p1:class>
+                                        <d1p1:class>Method4</d1p1:class>
+                                        <d1p1:method>TestClass</d1p1:method>
+                                        <d1p1:elapsed>919</d1p1:elapsed>
+                                        <d1p1:childs>
+                                             <d1p1:MethodTraceResultDto>
+                                                  <d1p1:class>Method5</d1p1:class>
+                                                  <d1p1:method>TestClass</d1p1:method>
+                                                  <d1p1:elapsed>505</d1p1:elapsed>
+                                                  <d1p1:childs />
+                                             </d1p1:MethodTraceResultDto>
+                                        </d1p1:childs>
+                                   </d1p1:MethodTraceResultDto>
+                              </d1p1:childs>
+                         </d1p1:MethodTraceResultDto>
+                    </d1p1:methods>
+               </d2p1:Value>
+          </d2p1:KeyValueOfintThreadTraceResultDtogzYgOC0z>
+          <d2p1:KeyValueOfintThreadTraceResultDtogzYgOC0z>
+               <d2p1:Key>10</d2p1:Key>
+               <d2p1:Value>
+                    <d1p1:elapsed>919</d1p1:elapsed>
+                    <d1p1:methods>
+                         <d1p1:MethodTraceResultDto>
+                              <d1p1:class>Method4</d1p1:class>
+                              <d1p1:method>TestClass</d1p1:method>
+                              <d1p1:elapsed>919</d1p1:elapsed>
+                              <d1p1:childs>
+                                   <d1p1:MethodTraceResultDto>
+                                        <d1p1:class>Method5</d1p1:class>
                                         <d1p1:method>TestClass</d1p1:method>
                                         <d1p1:elapsed>505</d1p1:elapsed>
                                         <d1p1:childs />

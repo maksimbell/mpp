@@ -4,16 +4,16 @@ namespace Core
 {
     public class TraceResult
     {
-        public readonly ConcurrentDictionary<int, ThreadTraceResult> Threads;
+        public readonly ConcurrentDictionary<int, ThreadTraceResult> ThreadsTraceResult;
 
         public TraceResult()
         {
-            Threads = new ConcurrentDictionary<int, ThreadTraceResult>();
+            ThreadsTraceResult = new ConcurrentDictionary<int, ThreadTraceResult>();
         }
 
         public ThreadTraceResult GetOrAddThread(int threadId)
         {
-            return Threads.GetOrAdd(threadId, new ThreadTraceResult(threadId));
+            return ThreadsTraceResult.GetOrAdd(threadId, new ThreadTraceResult(threadId));
         }
     }
 }

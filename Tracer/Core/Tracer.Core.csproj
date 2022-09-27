@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="CustomTracer.cs" />
     <Compile Include="ITracer.cs" />
-    <Compile Include="IMethodTraceResult.cs" />
     <Compile Include="ThreadTraceResult.cs" />
     <Compile Include="MethodTraceResult.cs" />
     <Compile Include="TraceResult.cs" />

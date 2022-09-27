@@ -14,7 +14,7 @@ namespace Example
             ITracer tracer = new CustomTracer();
 
             TestClass test = new TestClass(tracer);
-            test.Method8();
+            test.StartTest();
                         
             foreach (Type type in pluginLoader.plugins)
             {

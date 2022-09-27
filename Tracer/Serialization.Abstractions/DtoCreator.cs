@@ -7,7 +7,7 @@ namespace Serialization.Abstractions
     {
         public static TraceResultDto CreateTraceResultDto(TraceResult traceResult)
         {
-            return new TraceResultDto(AddThreadTraceResulstDto(traceResult.Threads));
+            return new TraceResultDto(AddThreadTraceResulstDto(traceResult.ThreadsTraceResult));
         }
 
         private static ConcurrentDictionary<int, ThreadTraceResultDto>  AddThreadTraceResulstDto(

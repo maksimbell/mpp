@@ -13,7 +13,7 @@ namespace Core
 
         public List<MethodTraceResult> ChildMethods { get; set; }
 
-        private Stopwatch _stopwatch;
+        private readonly Stopwatch _stopwatch;
 
         public string StackState { get; }
 

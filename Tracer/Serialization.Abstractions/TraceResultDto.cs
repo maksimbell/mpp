@@ -8,11 +8,11 @@ namespace Serialization.Abstractions
     public class TraceResultDto
     {
         [DataMember(Name = "threads")]
-        public ConcurrentDictionary<int, ThreadTraceResultDto> Threads;
+        public ConcurrentDictionary<int, ThreadTraceResultDto> ThreadsTraceResult;
 
         public TraceResultDto(ConcurrentDictionary<int, ThreadTraceResultDto> threads)
         {
-            Threads = threads;
+            ThreadsTraceResult = threads;
         }
     }
 }
