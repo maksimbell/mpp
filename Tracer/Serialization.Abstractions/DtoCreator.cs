@@ -1,5 +1,6 @@
 ﻿using System.Collections.Concurrent;
 using Core;
+using System.Runtime;
 
 namespace Serialization.Abstractions
 {
@@ -11,7 +12,7 @@ namespace Serialization.Abstractions
         }
 
         private static ConcurrentDictionary<int, ThreadTraceResultDto>  AddThreadTraceResulstDto(
-            ConcurrentDictionary<int, ThreadTraceResult> threadResults)
+            IReadOnlyDictionary<int, ThreadTraceResult> threadResults)
         {
             var threads = new ConcurrentDictionary<int, ThreadTraceResultDto>();
             foreach (var threadKey in threadResults.Keys)
@@ -23,7 +24,7 @@ namespace Serialization.Abstractions
             return threads;
         }
 
-        private static List<MethodTraceResultDto> AddMethodTraceResultDto(List<MethodTraceResult> methodList)
+        private static List<MethodTraceResultDto> AddMethodTraceResultDto(IReadOnlyList<MethodTraceResult> methodList)
         {
             var methodResultDtoList = new List<MethodTraceResultDto>();
             foreach (var methodResult in methodList)
@@ -35,8 +36,8 @@ namespace Serialization.Abstractions
                 }
 
                 methodResultDtoList.Add(new MethodTraceResultDto(
-                        methodResult.MethodName,
                         methodResult.ClassName,
+                        methodResult.MethodName,
                         methodResult.Elapsed,
                         nestedMethodResultDtoList
                     )

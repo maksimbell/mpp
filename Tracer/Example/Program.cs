@@ -15,18 +15,15 @@ namespace Example
 
             TestClass test = new TestClass(tracer);
             test.StartTest();
+
                         
             foreach (Type type in pluginLoader.plugins)
             {
                 var method = type?.GetMethod("Serialize");
-                var obj = Activator.CreateInstance(type!);
-                var format = type?.GetProperty("Format")?.GetValue(obj, null);
-                method?.Invoke(obj, new object?[]
-                    {
-                    DtoCreator.CreateTraceResultDto(tracer.GetTraceResult()),
-                    new FileStream("../../../test/result." + format, FileMode.Create)
-                    }
-                );
+                var obj = Activator.CreateInstance(type!) as ITraceResultSerializer;
+
+                obj?.Serialize(DtoCreator.CreateTraceResultDto(tracer.GetTraceResult()),
+                    new FileStream("../../../test/result." + obj.Format, FileMode.Create));
             }
         }
     }

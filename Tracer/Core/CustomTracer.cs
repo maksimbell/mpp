@@ -7,7 +7,7 @@ namespace Core
 {
     public class CustomTracer : ITracer
     {
-        private readonly TraceResult _traceResult;
+        private TraceResult _traceResult;
 
         public CustomTracer()
         {
@@ -26,8 +26,12 @@ namespace Core
             StackTrace stackTrace = new StackTrace();
 
             var method = stackTrace.GetFrame(1).GetMethod();
-            string stackState = string.Join(" ", stackTrace.ToString().Split(
-                new string[] { Environment.NewLine }, StringSplitOptions.None).Skip(1));
+            string stackState = string.Join(
+                " ", 
+                stackTrace
+                .ToString()
+                .Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
+                .Skip(1));
 
             threadTraceResult.Current = new MethodTraceResult(method.ReflectedType.Name, method.Name, stackState,
                 threadTraceResult.Current);
@@ -41,10 +45,14 @@ namespace Core
 
             StackTrace stackTrace = new StackTrace();
 
-            string stackState = string.Join(" ", stackTrace.ToString().Split(
-                new string[] { Environment.NewLine }, StringSplitOptions.None).Skip(1));
+            string stackState = string.Join(
+                " ",
+                stackTrace
+                .ToString()
+                .Split(new string[] { Environment.NewLine }, StringSplitOptions.None)
+                .Skip(1));
 
-            threadTraceResult.CreateTreeNode(stackState);
+            threadTraceResult.SetChildNode(stackState);
         }
     }
 }

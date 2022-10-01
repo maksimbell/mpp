@@ -11,13 +11,13 @@ namespace Core
 
         public long Elapsed { get; set; }
 
-        public List<MethodTraceResult> ChildMethods { get; set; }
+        public List<MethodTraceResult> ChildMethods { get; }
 
         private readonly Stopwatch _stopwatch;
 
         public string StackState { get; }
 
-        public MethodTraceResult Parent { get; set; }
+        public MethodTraceResult Parent { get; }
 
         public MethodTraceResult(string className, string methodName, string stackState, 
             MethodTraceResult parent, long elapsed = 0)

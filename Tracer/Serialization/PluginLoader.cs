@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using Serialization.Abstractions;
+using System.Reflection;
 
 namespace Serialization
 {
@@ -17,10 +18,12 @@ namespace Serialization
                 var assembly = Assembly.LoadFrom(filePath);
                 var type = assembly.GetExportedTypes()[0];
 
-                if (!type.IsInterface && type?.GetMethod("Serialize") != null)
+                if (!type.IsInterface && type.IsAssignableTo(typeof(ITraceResultSerializer)))
                 {
                     plugins.Add(type!);
                 }
+
+       
             }
         }
     }

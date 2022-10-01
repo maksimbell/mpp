@@ -16,7 +16,7 @@ namespace Example
 
             Thread thread1 = new Thread(Method1);
             Thread thread2 = new Thread(Method2);
-            Thread thread3 = new Thread(Method4);
+            Thread thread3 = new Thread(Method5);
 
             thread1.Start();
             thread2.Start();
@@ -84,14 +84,6 @@ namespace Example
             Method6();
             Thread.Sleep(100);
             Method6();
-        }
-
-        public void Method10()
-        {
-            _tracer.StartTrace();
-            Thread.Sleep(100);
-            Method10();
-            _tracer.StopTrace();
         }
 
     }

@@ -1,19 +1,27 @@
 ﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Core
 {
     public class TraceResult
     {
-        public readonly ConcurrentDictionary<int, ThreadTraceResult> ThreadsTraceResult;
+        private ConcurrentDictionary<int, ThreadTraceResult> _threadsTraceResult;
+
+        public IReadOnlyDictionary<int, ThreadTraceResult> ThreadsTraceResult
+        {
+            get { return _threadsTraceResult; }
+        }
 
         public TraceResult()
         {
-            ThreadsTraceResult = new ConcurrentDictionary<int, ThreadTraceResult>();
+            _threadsTraceResult = new ConcurrentDictionary<int, ThreadTraceResult>();
         }
 
         public ThreadTraceResult GetOrAddThread(int threadId)
         {
-            return ThreadsTraceResult.GetOrAdd(threadId, new ThreadTraceResult(threadId));
+            return _threadsTraceResult.GetOrAdd(threadId, new ThreadTraceResult(threadId));
         }
     }
 }

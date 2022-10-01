@@ -5,37 +5,42 @@ namespace Core
 {
     public class ThreadTraceResult
     {
-        public readonly List<MethodTraceResult> MethodsList;
+        private List<MethodTraceResult> _methodsList;
+
+        public IReadOnlyList<MethodTraceResult> MethodsList
+        {
+            get { return _methodsList; }
+        }
 
         public MethodTraceResult Current { get; set; }
-        public long Elapsed { get; set; }   
+        public long Elapsed { get; private set; }   
 
         public ThreadTraceResult(int threadId)
         {
-            MethodsList = new List<MethodTraceResult>();
+            _methodsList = new List<MethodTraceResult>();
             Elapsed = 0;
             Current = null;
         }
 
         public void AddMethod(MethodTraceResult methodTraceResult)
         {
-            MethodsList.Add(methodTraceResult);
+            _methodsList.Add(methodTraceResult);
         }
 
-        public void CreateTreeNode(string stackState)
+        public void SetChildNode(string stackState)
         {
-            int id = MethodsList.FindLastIndex(element => element.StackState == stackState);
-            MethodTraceResult methodTraceResult = MethodsList[id];
+            int id = _methodsList.FindLastIndex(element => element.StackState == stackState);
+            MethodTraceResult methodTraceResult = _methodsList[id];
             methodTraceResult.SetTime();
 
-            MethodsList.RemoveAt(id);
+            _methodsList.RemoveAt(id);
 
             if (Current.Parent != null) {
                 Current.Parent.ChildMethods.Add(Current);
             }
             else
             {
-                MethodsList.Add(Current);
+                _methodsList.Add(Current);
                 Elapsed += Current.Elapsed;
             }
             Current = Current.Parent;
