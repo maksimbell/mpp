@@ -20,11 +20,11 @@ namespace Json
 
         public string Format => "json";
 
-        public void Serialize(TraceResultDto traceResult, Stream to)
+        public void Serialize(TraceResult traceResult, Stream to)
         {
             using var jsonWriter = JsonReaderWriterFactory.CreateJsonWriter(to, Encoding.UTF8, ownsStream: true,
                 indent: true, indentChars: "     ");
-            _jsonFormatter.WriteObject(jsonWriter, traceResult);
+            _jsonFormatter.WriteObject(jsonWriter, DtoCreator.CreateTraceResultDto(traceResult));
         }
     }
 }

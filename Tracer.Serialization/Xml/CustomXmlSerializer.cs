@@ -22,10 +22,10 @@ namespace Xml
 
         public string Format => "xml";
 
-        public void Serialize(TraceResultDto traceResult, Stream to)
+        public void Serialize(TraceResult traceResult, Stream to)
         {
             using var xmlWriter = XmlWriter.Create(to, _xmlWriterSettings);
-            _xmlConverter.WriteObject(xmlWriter, traceResult);
+            _xmlConverter.WriteObject(xmlWriter, DtoCreator.CreateTraceResultDto(traceResult));
         }
     }
 }

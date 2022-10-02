@@ -15,7 +15,7 @@ namespace Core
         public MethodTraceResult Current { get; set; }
         public long Elapsed { get; private set; }   
 
-        public ThreadTraceResult(int threadId)
+        public ThreadTraceResult(int threadId)//internal
         {
             _methodsList = new List<MethodTraceResult>();
             Elapsed = 0;

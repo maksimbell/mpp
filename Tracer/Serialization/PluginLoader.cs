@@ -22,8 +22,6 @@ namespace Serialization
                 {
                     plugins.Add(type!);
                 }
-
-       
             }
         }
     }

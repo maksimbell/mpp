@@ -19,10 +19,9 @@ namespace Example
                         
             foreach (Type type in pluginLoader.plugins)
             {
-                var method = type?.GetMethod("Serialize");
                 var obj = Activator.CreateInstance(type!) as ITraceResultSerializer;
 
-                obj?.Serialize(DtoCreator.CreateTraceResultDto(tracer.GetTraceResult()),
+                obj?.Serialize(tracer.GetTraceResult(),
                     new FileStream("../../../test/result." + obj.Format, FileMode.Create));
             }
         }

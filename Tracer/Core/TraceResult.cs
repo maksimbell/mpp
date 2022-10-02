@@ -14,12 +14,12 @@ namespace Core
             get { return _threadsTraceResult; }
         }
 
-        public TraceResult()
+        internal TraceResult()
         {
             _threadsTraceResult = new ConcurrentDictionary<int, ThreadTraceResult>();
         }
 
-        public ThreadTraceResult GetOrAddThread(int threadId)
+        internal ThreadTraceResult GetOrAddThread(int threadId)
         {
             return _threadsTraceResult.GetOrAdd(threadId, new ThreadTraceResult(threadId));
         }
