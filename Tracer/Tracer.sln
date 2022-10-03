@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tracer.Serialization.Abstra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tracer.Serialization", "Serialization\Tracer.Serialization.csproj", "{FB29E5D8-0FED-4270-96A1-4D9C406FCA47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tracer.Core.Tests", "Tracer.Core.Tests\Tracer.Core.Tests.csproj", "{1FC3EAE0-F85C-4F94-AFCC-8109D4004382}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tracer.Core.Tests", "Tracer.Core.Tests\Tracer.Core.Tests.csproj", "{1FC3EAE0-F85C-4F94-AFCC-8109D4004382}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
