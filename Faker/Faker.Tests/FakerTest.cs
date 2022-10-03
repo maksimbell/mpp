@@ -1,3 +1,5 @@
+using Faker.Core;
+
 namespace Faker.Tests
 {
     public class Tests
@@ -5,6 +7,8 @@ namespace Faker.Tests
         [SetUp]
         public void Setup()
         {
+            IFaker faker = new CustomFaker();
+            string str = faker.Create<string>();
         }
 
         [Test]

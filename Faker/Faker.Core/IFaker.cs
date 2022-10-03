@@ -2,8 +2,8 @@
 {
     public interface IFaker
     {
-        public T Create<T>();
+        T Create<T>();
 
-        public object Create(Type t);
+        object Create(Type t);
     }
 }
