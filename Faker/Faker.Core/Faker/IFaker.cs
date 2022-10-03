@@ -1,4 +1,4 @@
-﻿namespace Faker.Core
+﻿namespace Faker.Core.Faker
 {
     public interface IFaker
     {

@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Faker.Core.Faker;
 
-namespace Faker.Core
+namespace Faker.Core.Generator
 {
     public class GeneratorContext
     {

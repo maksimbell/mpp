@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Faker.Core
+namespace Faker.Core.Generator
 {
-    public class StringGenerator : IValueGenerator
+    public class DateTimeGenerator : IValueGenerator
     {
         public object Generate(Type typeToGenerate, GeneratorContext context)
-        {   
-            return default(String);
+        {
+            return new DateTime(2020, 9, 1);
         }
         public bool CanGenerate(Type type)
         {
-            return true;
+            return type == typeof(DateTime);
         }
     }
 }
