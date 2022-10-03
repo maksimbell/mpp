@@ -26,7 +26,7 @@ namespace Faker.Tests
         [Test]
         public void DateTime_2020_09_01()
         {
-            Assert.AreEqual(_faker.Create<DateTime>(), new DateTime(2020, 9, 1));
+            Assert.That(new DateTime(2020, 9, 1), Is.EqualTo(_faker.Create<DateTime>()));
         }
     }
 }
