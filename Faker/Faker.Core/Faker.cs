@@ -1,6 +1,6 @@
 ﻿namespace Faker.Core
 {
-    public class Faker
+    public class Faker: IFaker
     {
         public T Create<T>()
         {
