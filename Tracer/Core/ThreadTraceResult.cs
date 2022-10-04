@@ -12,22 +12,22 @@ namespace Core
             get { return _methodsList; }
         }
 
-        public MethodTraceResult Current { get; set; }
+        internal MethodTraceResult Current { get; set; }
         public long Elapsed { get; private set; }   
 
-        public ThreadTraceResult(int threadId)//internal
+        internal ThreadTraceResult(int threadId)//internal
         {
             _methodsList = new List<MethodTraceResult>();
             Elapsed = 0;
             Current = null;
         }
 
-        public void AddMethod(MethodTraceResult methodTraceResult)
+        internal void AddMethod(MethodTraceResult methodTraceResult)
         {
             _methodsList.Add(methodTraceResult);
         }
 
-        public void SetChildNode(string stackState)
+        internal void SetChildNode(string stackState)
         {
             int id = _methodsList.FindLastIndex(element => element.StackState == stackState);
             MethodTraceResult methodTraceResult = _methodsList[id];
@@ -36,7 +36,7 @@ namespace Core
             _methodsList.RemoveAt(id);
 
             if (Current.Parent != null) {
-                Current.Parent.ChildMethods.Add(Current);
+                Current.Parent.AddChildNode(Current);
             }
             else
             {

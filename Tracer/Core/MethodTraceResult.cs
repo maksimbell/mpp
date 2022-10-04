@@ -11,35 +11,45 @@ namespace Core
 
         public long Elapsed { get; set; }
 
-        public List<MethodTraceResult> ChildMethods { get; }
+        private List<MethodTraceResult> _childMethods;
+
+        public IReadOnlyList<MethodTraceResult> ChildMethods
+        {
+            get { return _childMethods; }
+        }
+
+        internal void AddChildNode(MethodTraceResult methodTraceResult)
+        {
+            _childMethods.Add(methodTraceResult);
+        }
 
         private readonly Stopwatch _stopwatch;
 
-        public string StackState { get; }
+        internal string StackState { get; }
 
-        public MethodTraceResult Parent { get; }
+        internal MethodTraceResult Parent { get; }
 
-        public MethodTraceResult(string className, string methodName, string stackState, 
+        internal MethodTraceResult(string className, string methodName, string stackState, 
             MethodTraceResult parent, long elapsed = 0)
         {
             ClassName = className;
             MethodName = methodName;
             Elapsed = elapsed;
-            ChildMethods = new List<MethodTraceResult>();
+            _childMethods = new List<MethodTraceResult>();
             StackState = stackState;
             Parent = parent;
             _stopwatch = Stopwatch.StartNew();
         }
 
-        public void SetTime()
+        internal void SetTime()
         {
             _stopwatch.Stop();
             Elapsed = _stopwatch.ElapsedMilliseconds;
         }
 
-        public void AddChild(MethodTraceResult child)
+        internal void AddChild(MethodTraceResult child)
         {
-            ChildMethods.Add(child);
+            _childMethods.Add(child);
         }
     }
 }

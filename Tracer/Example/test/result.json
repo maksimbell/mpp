@@ -4,27 +4,27 @@
           {
                "Key": 8,
                "Value": {
-                    "elapsed": 1134,
+                    "elapsed": 1130,
                     "methods": [
                          {
                               "class": "TestClass",
                               "method": "Method1",
-                              "elapsed": 1134,
+                              "elapsed": 1130,
                               "childs": [
                                    {
                                         "class": "TestClass",
                                         "method": "Method3",
-                                        "elapsed": 915,
+                                        "elapsed": 921,
                                         "childs": [
                                              {
                                                   "class": "TestClass",
                                                   "method": "Method4",
-                                                  "elapsed": 915,
+                                                  "elapsed": 920,
                                                   "childs": [
                                                        {
                                                             "class": "TestClass",
                                                             "method": "Method5",
-                                                            "elapsed": 506,
+                                                            "elapsed": 512,
                                                             "childs": [ ]
                                                        }
                                                   ]
@@ -39,22 +39,22 @@
           {
                "Key": 9,
                "Value": {
-                    "elapsed": 914,
+                    "elapsed": 930,
                     "methods": [
                          {
                               "class": "TestClass",
                               "method": "Method3",
-                              "elapsed": 914,
+                              "elapsed": 930,
                               "childs": [
                                    {
                                         "class": "TestClass",
                                         "method": "Method4",
-                                        "elapsed": 913,
+                                        "elapsed": 929,
                                         "childs": [
                                              {
                                                   "class": "TestClass",
                                                   "method": "Method5",
-                                                  "elapsed": 504,
+                                                  "elapsed": 513,
                                                   "childs": [ ]
                                              }
                                         ]
@@ -67,12 +67,12 @@
           {
                "Key": 10,
                "Value": {
-                    "elapsed": 505,
+                    "elapsed": 512,
                     "methods": [
                          {
                               "class": "TestClass",
                               "method": "Method5",
-                              "elapsed": 505,
+                              "elapsed": 512,
                               "childs": [ ]
                          }
                     ]

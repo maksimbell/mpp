@@ -4,27 +4,27 @@
           <d2p1:KeyValueOfintThreadTraceResultDtogzYgOC0z>
                <d2p1:Key>8</d2p1:Key>
                <d2p1:Value>
-                    <d1p1:elapsed>1134</d1p1:elapsed>
+                    <d1p1:elapsed>1130</d1p1:elapsed>
                     <d1p1:methods>
                          <d1p1:MethodTraceResultDto>
                               <d1p1:class>TestClass</d1p1:class>
                               <d1p1:method>Method1</d1p1:method>
-                              <d1p1:elapsed>1134</d1p1:elapsed>
+                              <d1p1:elapsed>1130</d1p1:elapsed>
                               <d1p1:childs>
                                    <d1p1:MethodTraceResultDto>
                                         <d1p1:class>TestClass</d1p1:class>
                                         <d1p1:method>Method3</d1p1:method>
-                                        <d1p1:elapsed>915</d1p1:elapsed>
+                                        <d1p1:elapsed>921</d1p1:elapsed>
                                         <d1p1:childs>
                                              <d1p1:MethodTraceResultDto>
                                                   <d1p1:class>TestClass</d1p1:class>
                                                   <d1p1:method>Method4</d1p1:method>
-                                                  <d1p1:elapsed>915</d1p1:elapsed>
+                                                  <d1p1:elapsed>920</d1p1:elapsed>
                                                   <d1p1:childs>
                                                        <d1p1:MethodTraceResultDto>
                                                             <d1p1:class>TestClass</d1p1:class>
                                                             <d1p1:method>Method5</d1p1:method>
-                                                            <d1p1:elapsed>506</d1p1:elapsed>
+                                                            <d1p1:elapsed>512</d1p1:elapsed>
                                                             <d1p1:childs />
                                                        </d1p1:MethodTraceResultDto>
                                                   </d1p1:childs>
@@ -39,22 +39,22 @@
           <d2p1:KeyValueOfintThreadTraceResultDtogzYgOC0z>
                <d2p1:Key>9</d2p1:Key>
                <d2p1:Value>
-                    <d1p1:elapsed>914</d1p1:elapsed>
+                    <d1p1:elapsed>930</d1p1:elapsed>
                     <d1p1:methods>
                          <d1p1:MethodTraceResultDto>
                               <d1p1:class>TestClass</d1p1:class>
                               <d1p1:method>Method3</d1p1:method>
-                              <d1p1:elapsed>914</d1p1:elapsed>
+                              <d1p1:elapsed>930</d1p1:elapsed>
                               <d1p1:childs>
                                    <d1p1:MethodTraceResultDto>
                                         <d1p1:class>TestClass</d1p1:class>
                                         <d1p1:method>Method4</d1p1:method>
-                                        <d1p1:elapsed>913</d1p1:elapsed>
+                                        <d1p1:elapsed>929</d1p1:elapsed>
                                         <d1p1:childs>
                                              <d1p1:MethodTraceResultDto>
                                                   <d1p1:class>TestClass</d1p1:class>
                                                   <d1p1:method>Method5</d1p1:method>
-                                                  <d1p1:elapsed>504</d1p1:elapsed>
+                                                  <d1p1:elapsed>513</d1p1:elapsed>
                                                   <d1p1:childs />
                                              </d1p1:MethodTraceResultDto>
                                         </d1p1:childs>
@@ -67,12 +67,12 @@
           <d2p1:KeyValueOfintThreadTraceResultDtogzYgOC0z>
                <d2p1:Key>10</d2p1:Key>
                <d2p1:Value>
-                    <d1p1:elapsed>505</d1p1:elapsed>
+                    <d1p1:elapsed>512</d1p1:elapsed>
                     <d1p1:methods>
                          <d1p1:MethodTraceResultDto>
                               <d1p1:class>TestClass</d1p1:class>
                               <d1p1:method>Method5</d1p1:method>
-                              <d1p1:elapsed>505</d1p1:elapsed>
+                              <d1p1:elapsed>512</d1p1:elapsed>
                               <d1p1:childs />
                          </d1p1:MethodTraceResultDto>
                     </d1p1:methods>

@@ -25,6 +25,7 @@ namespace Json
             using var jsonWriter = JsonReaderWriterFactory.CreateJsonWriter(to, Encoding.UTF8, ownsStream: true,
                 indent: true, indentChars: "     ");
             _jsonFormatter.WriteObject(jsonWriter, DtoCreator.CreateTraceResultDto(traceResult));
+            
         }
     }
 }

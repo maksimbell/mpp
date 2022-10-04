@@ -3,41 +3,41 @@ threadsTraceResult:
     methodsList:
     - className: TestClass
       methodName: Method1
-      elapsed: 1134
+      elapsed: 1130
       childMethods:
       - className: TestClass
         methodName: Method3
-        elapsed: 915
+        elapsed: 921
         childMethods:
         - className: TestClass
           methodName: Method4
-          elapsed: 915
+          elapsed: 920
           childMethods:
           - className: TestClass
             methodName: Method5
-            elapsed: 506
+            elapsed: 512
             childMethods: []
-    elapsed: 1134
+    elapsed: 1130
   9:
     methodsList:
     - className: TestClass
       methodName: Method3
-      elapsed: 914
+      elapsed: 930
       childMethods:
       - className: TestClass
         methodName: Method4
-        elapsed: 913
+        elapsed: 929
         childMethods:
         - className: TestClass
           methodName: Method5
-          elapsed: 504
+          elapsed: 513
           childMethods: []
-    elapsed: 914
+    elapsed: 930
   10:
     methodsList:
     - className: TestClass
       methodName: Method5
-      elapsed: 505
+      elapsed: 512
       childMethods: []
-    elapsed: 505
+    elapsed: 512
 
