@@ -13,6 +13,10 @@ namespace Faker.Core.Faker
             _generators.Add(typeof(string), new StringGenerator());
             _generators.Add(typeof(bool), new BooleanGenerator());
             _generators.Add(typeof(DateTime), new DateTimeGenerator());
+            _generators.Add(typeof(int), new IntGenerator());
+            _generators.Add(typeof(double), new DoubleGenerator());
+            _generators.Add(typeof(char), new CharGenerator());
+            _generators.Add(typeof(List<>), new ListGenerator());
         }
 
         public IReadOnlyDictionary<Type, IValueGenerator> Generators

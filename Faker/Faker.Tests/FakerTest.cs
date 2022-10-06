@@ -12,21 +12,27 @@ namespace Faker.Tests
         }
 
         [Test]
-        public void BoolType_False()
+        public void TestBool_Equals()
         {
-            Assert.That(_faker.Create<bool>(), Is.False);
+            Assert.That(_faker.Create<bool>().GetType(), Is.EqualTo(typeof(bool)));
         }
 
         [Test]
-        public void String_Null()
+        public void TestString_Equals()
         {
-            Assert.That(_faker.Create<string>(), Is.Null);
+            Assert.That(_faker.Create<string>().GetType(), Is.EqualTo(typeof(string)));
         }
 
         [Test]
-        public void DateTime_2020_09_01()
+        public void TestDateTime_Equals()
         {
-            Assert.That(new DateTime(2020, 9, 1), Is.EqualTo(_faker.Create<DateTime>()));
+            Assert.That(_faker.Create<DateTime>().GetType(), Is.EqualTo(typeof(DateTime)));
+        }
+
+        [Test]
+        public void TestList_Equals()
+        {
+            Assert.That(_faker.Create<List<int>>().GetType(), Is.EqualTo(typeof(DateTime)));
         }
     }
 }
