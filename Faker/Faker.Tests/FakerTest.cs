@@ -1,4 +1,5 @@
 using Faker.Core.Faker;
+using Faker.Core.Service;
 
 namespace Faker.Tests
 {
@@ -35,10 +36,16 @@ namespace Faker.Tests
             Assert.That(_faker.Create<List<int>>().GetType(), Is.EqualTo(typeof(List<int>)));
         }
 
-        /*[Test]
+        [Test]
         public void TestDoubleList_Equals()
         {
             Assert.That(_faker.Create<List<List<int>>>().GetType(), Is.EqualTo(typeof(List<List<int>>)));
-        }*/
+        }
+
+        [Test]
+        public void TestObject_Equals()
+        {
+            Assert.That(_faker.Create<User>().GetType(), Is.EqualTo(typeof(User)));
+        }
     }
 }

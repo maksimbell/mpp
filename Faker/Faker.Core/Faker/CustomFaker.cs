@@ -20,6 +20,7 @@ namespace Faker.Core.Faker
             _generators.Add(typeof(double), new DoubleGenerator());
             _generators.Add(typeof(char), new CharGenerator());
             _generators.Add(typeof(IList), new ListGenerator());
+            _generators.Add(typeof(object), new CompositeGenerator());
         }
 
         public IReadOnlyDictionary<Type, IValueGenerator> Generators
