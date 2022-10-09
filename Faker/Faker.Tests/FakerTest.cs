@@ -32,7 +32,13 @@ namespace Faker.Tests
         [Test]
         public void TestList_Equals()
         {
-            Assert.That(_faker.Create<List<int>>().GetType(), Is.EqualTo(typeof(DateTime)));
+            Assert.That(_faker.Create<List<int>>().GetType(), Is.EqualTo(typeof(List<int>)));
+        }
+
+        [Test]
+        public void TestDoubleList_Equals()
+        {
+            Assert.That(_faker.Create<List<List<int>>>().GetType(), Is.EqualTo(typeof(List<List<int>>)));
         }
     }
 }

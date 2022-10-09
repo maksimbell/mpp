@@ -1,4 +1,5 @@
 ﻿using Faker.Core.Generator;
+using System.Linq;
 
 namespace Faker.Core.Faker
 {
@@ -32,13 +33,19 @@ namespace Faker.Core.Faker
         public object Create(Type t)
         {
             var generator = _generators.FirstOrDefault(generator => generator.Key == t).Value;
+
+            if (generator == null)
+            {
+                generator = _generators.LastOrDefault().Value;
+            }
+
             if (generator.CanGenerate(t))
             {
                 Random random = new Random();
                 return generator.Generate(t, new GeneratorContext(random, this));
             }
             else
-                return null;
+                return GetDefaultValue(t);
         }
         private static object GetDefaultValue(Type t)
         {
