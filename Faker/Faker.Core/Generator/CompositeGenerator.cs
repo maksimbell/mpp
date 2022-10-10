@@ -17,7 +17,23 @@ namespace Faker.Core.Generator
 
             foreach (var ctor in constructors)
             {
+                var parametersList = new List<object>();
+                var ctorParameters = ctor.GetParameters();
 
+                foreach (var parameter in ctorParameters)
+                {
+                    parametersList.Add(context.Faker.Create(parameter.ParameterType));
+
+                    try
+                    {
+                        var obj = Activator.CreateInstance(typeToGenerate, args: parametersList.ToArray());
+                        return obj;
+                    }
+                    catch
+                    {
+
+                    }
+                }
             }
 
             return null;

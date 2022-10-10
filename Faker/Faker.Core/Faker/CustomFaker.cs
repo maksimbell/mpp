@@ -36,7 +36,7 @@ namespace Faker.Core.Faker
         public object Create(Type t)
         {
 
-            var generator = _generators.FirstOrDefault(generator => generator.Key.IsAssignableFrom(t)).Value;
+            var generator = _generators.FirstOrDefault(generator => generator.Key.IsAssignableFrom(t), _generators.Last()).Value;
 
             if (generator.CanGenerate(t))
             {
