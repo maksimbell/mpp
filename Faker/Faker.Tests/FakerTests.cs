@@ -16,19 +16,19 @@ public class FakerTests
     [TestMethod]
     public void TestBool_Equals()
     {
-        Assert.Equals(_faker.Create<bool>().GetType(), (typeof(bool)));
+        Assert.AreEqual(_faker.Create<bool>().GetType(), (typeof(bool)));
     }
 
     [TestMethod]
     public void TestString_Equals()
     {
-        Assert.Equals(_faker.Create<string>().GetType(), (typeof(string)));
+        Assert.AreEqual(_faker.Create<string>().GetType(), (typeof(string)));
     }
 
     [TestMethod]
     public void TestDateTime_Equals()
     {
-        Assert.Equals(_faker.Create<DateTime>().GetType(), (typeof(DateTime)));
+        Assert.AreEqual(_faker.Create<DateTime>().GetType(), (typeof(DateTime)));
     }
 
     /*[TestMethod]
