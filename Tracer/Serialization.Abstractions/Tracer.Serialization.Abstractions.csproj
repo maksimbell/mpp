@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="Core">
-      <HintPath>..\Core\bin\Debug\Core.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Core\Tracer.Core.csproj" />
   </ItemGroup>
 
 
