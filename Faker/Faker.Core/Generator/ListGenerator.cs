@@ -11,7 +11,7 @@ namespace Faker.Core.Generator
     public class ListGenerator : IValueGenerator
     {
         private const int MinListLength = 1;
-        private const int MaxListLength = 5;
+        private const int MaxListLength = 2;
         public object Generate(Type typeToGenerate, GeneratorContext context)
         {
             var list = (IList)Activator.CreateInstance(typeToGenerate)!;
@@ -28,7 +28,7 @@ namespace Faker.Core.Generator
             for (int i = 0; i < length; i++)
             {
                 //list.Add(createMethod?.Invoke(context.Faker, new object[] { }));
-                list.Add(context.Faker.Create(typeToGenerate));
+                list.Add(context.Faker.Create(typeToGenerate.GetGenericArguments().First()));
             }
 
             return list;

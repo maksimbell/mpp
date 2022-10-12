@@ -13,6 +13,7 @@ namespace Faker.Core.Service
 
         public User(string name, int age)
         {
+
             Name = name;
             Age = age;
         }
