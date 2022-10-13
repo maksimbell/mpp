@@ -82,7 +82,8 @@ namespace Faker.Tests
         [Test]
         public void TestPerson_Equals()
         {
-            Assert.That(_faker.Create<Person>().GetType(), Is.EqualTo(typeof(Person)));
+            Person person = _faker.Create<Person>();
+            Assert.That(person.GetType(), Is.EqualTo(typeof(Person)));
         }
     }
 }
