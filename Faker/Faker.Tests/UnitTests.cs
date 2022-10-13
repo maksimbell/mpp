@@ -78,5 +78,11 @@ namespace Faker.Tests
         {
             Assert.That(_faker.Create<List<List<int>>>().GetType(), Is.EqualTo(typeof(List<List<int>>)));
         }
+
+        [Test]
+        public void TestPerson_Equals()
+        {
+            Assert.That(_faker.Create<Person>().GetType(), Is.EqualTo(typeof(Person)));
+        }
     }
 }
