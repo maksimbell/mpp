@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Faker.Core.Service
 {
-    public class User
+    public class Person
     {
         public string Name { get; set; }
-        public int Age { get; set; }
+        public Person Parent { get; set; }
 
-        public User(string name, int age)
+        public Person(string name, Person parent)
         {
             Name = name;
-            Age = age;
+            Parent = parent;
         }
     }
 }

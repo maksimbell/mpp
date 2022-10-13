@@ -20,6 +20,12 @@ namespace Faker.Tests
         }
 
         [Test]
+        public void TestLong_Equals()
+        {
+            Assert.That(_faker.Create<long>().GetType(), Is.EqualTo(typeof(long)));
+        }
+
+        [Test]
         public void TestChar_Equals()
         {
             Assert.That(_faker.Create<char>().GetType(), Is.EqualTo(typeof(char)));
@@ -41,6 +47,12 @@ namespace Faker.Tests
         public void TestDouble_Equals()
         {
             Assert.That(_faker.Create<double>().GetType(), Is.EqualTo(typeof(double)));
+        }
+
+        [Test]
+        public void TestFloat_Equals()
+        {
+            Assert.That(_faker.Create<float>().GetType(), Is.EqualTo(typeof(float)));
         }
 
         [Test]
