@@ -8,48 +8,44 @@ namespace Faker.Core.Faker
 {
     public class CustomFaker : IFaker
     {
-        private Dictionary<Type, IValueGenerator> _generators;
-        private List<Type> _usedTypes;
         private const int MaxTypeDepth = 1;
+        private TypeTree _tree;
 
-        public CustomFaker()
+        private Dictionary<Type, IValueGenerator> _generators = new Dictionary<Type, IValueGenerator>
         {
-            _generators = new Dictionary<Type, IValueGenerator>();
+            { typeof(string), new StringGenerator() },
+            { typeof(bool), new BooleanGenerator()},
+            { typeof(DateTime), new DateTimeGenerator() },
+            { typeof(int), new IntGenerator() },
+            { typeof(long), new LongGenerator() },
+            { typeof(double), new DoubleGenerator() },
+            { typeof(float), new FloatGenerator() },
+            { typeof(char), new CharGenerator() },
+            { typeof(IList), new ListGenerator() }
+        };
 
-            _generators.Add(typeof(string), new StringGenerator());
-            _generators.Add(typeof(bool), new BooleanGenerator());
-            _generators.Add(typeof(DateTime), new DateTimeGenerator());
-            _generators.Add(typeof(int), new IntGenerator());
-            _generators.Add(typeof(long), new LongGenerator());
-            _generators.Add(typeof(double), new DoubleGenerator());
-            _generators.Add(typeof(float), new FloatGenerator());
-            _generators.Add(typeof(char), new CharGenerator());
-            _generators.Add(typeof(IList), new ListGenerator());
-
-            //_generators.Add(typeof(object), new CompositeGenerator());
-        }
-
-        public IReadOnlyDictionary<Type, IValueGenerator> Generators
-        {
-            get { return _generators; }
-        }
+        public CustomFaker(){}
 
         public T Create<T>()
         {
-            _usedTypes = new List<Type>();
+            _tree = new TypeTree();
             return (T)Create(typeof(T));
         }
 
         public object Create(Type t)
         {
-            if (_usedTypes.FindAll(type => type == t).Count > MaxTypeDepth)
+            Node node = new Node(t);
+            node.Parent = _tree.Current;
+            _tree.Current.AddChild(node);
+            _tree.Current = node;
+
+            if (_tree.Current.Parent.GetRepetitions(t) > MaxTypeDepth)
                 return null;
 
             var generator = _generators.FirstOrDefault(generator => generator.Key.IsAssignableFrom(t)).Value;
 
             if (null == generator)
             {
-                _usedTypes.Add(t);
                 return CreateWithConstructor(t);
             }
 
@@ -61,13 +57,14 @@ namespace Faker.Core.Faker
             else
                 return GetDefaultValue(t);
         }
+
         private static object GetDefaultValue(Type t)
         {
             if (t.IsValueType)
                 return Activator.CreateInstance(t);
             else
                 return null;
-        } 
+        }
 
         private object CreateWithConstructor(Type type)
         {
@@ -83,45 +80,45 @@ namespace Faker.Core.Faker
                 foreach (var parameter in ctorParameters)
                 {
                     parametersList.Add(Create(parameter.ParameterType));
+                    _tree.Current = _tree.Current.Parent;
                 }
 
                 try
                 {
                     var obj = Activator.CreateInstance(type, args: parametersList.ToArray());
+
                     SetProperties(obj);
                     SetFields(obj);
 
                     return obj;
                 }
-                catch
-                {
-
-                }
+                catch{}
             }
 
-            return null;
+            return GetDefaultValue(type);
         }
 
         private void SetProperties(Object obj)
         {
-            foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties(
-                BindingFlags.Public))
+            foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
             {
-                if (propertyInfo.GetSetMethod() != null)
+                if (propertyInfo.GetSetMethod() != null && 
+                    propertyInfo.GetValue(obj) == GetDefaultValue(propertyInfo.PropertyType))
                 {
                     propertyInfo.SetValue(obj, Create(propertyInfo.PropertyType));
+                    _tree.Current = _tree.Current.Parent;
                 }
             }
         }
 
         private void SetFields(Object obj)
         {
-            foreach (FieldInfo fieldInfo in obj.GetType().GetFields(
-                BindingFlags.Public | BindingFlags.Instance))
+            foreach (FieldInfo fieldInfo in obj.GetType().GetFields(BindingFlags.Instance))
             {
                 if (!fieldInfo.IsInitOnly)
                 {
                     fieldInfo.SetValue(obj, Create(fieldInfo.FieldType));
+                    _tree.Current = _tree.Current.Parent;
                 }
             }
         }

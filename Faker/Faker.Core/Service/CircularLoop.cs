@@ -8,16 +8,16 @@ namespace Faker.Core.Service
 {
     public class A
     {
-         public B b { get; set; }
+         public B B { get; set; }
     }
 
     public class B
     {
-        public C c { get; set; }
+        public C C { get; set; }
     }
 
     public class C
     {
-        public A a { get; set; }
+        public A A { get; set; }
     }
 }

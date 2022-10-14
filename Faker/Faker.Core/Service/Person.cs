@@ -11,10 +11,10 @@ namespace Faker.Core.Service
         public string Name { get; set; }
         public Person Parent { get; set; }
 
-        public Person(string name, Person parent)
+        public Person(Person parent, String name)
         {
-            Name = name;
             Parent = parent;
+            Name = name;
         }
     }
 }

@@ -13,7 +13,8 @@ namespace Faker.Tests
             _faker = new CustomFaker();
         }
 
-        [Test]
+        //---------type---------//
+        /*[Test]
         public void TestInt_Equals()
         {
             Assert.That(_faker.Create<int>().GetType(), Is.EqualTo(typeof(int)));
@@ -86,15 +87,60 @@ namespace Faker.Tests
         {
             Person person = _faker.Create<Person>();
             Assert.That(person.GetType(), Is.EqualTo(typeof(Person)));
+        }*/
+        // ---------------------------------------------------------
+
+        // --------- maxTypeDepth = 1-----------------
+        [Test]
+        public void TestCircularLoop_PersonDepth1()
+        {
+            Person p1 = _faker.Create<Person>();
+            Assert.IsNotNull(p1.Parent);
+            Assert.IsNull(p1.Parent.Parent);
         }
 
         [Test]
-        public void TestABC_Equals()
+        public void TestCircularLoop_ABCDepth1()
         {
             A a = _faker.Create<A>();
-            Assert.That(a.GetType(), Is.EqualTo(typeof(A)));
-
-            //b null prollem
+            Assert.IsNotNull(a.B);
+            Assert.IsNotNull(a.B.C);
+            Assert.IsNull(a.B.C.A.B.C.A);
+            //after constructor??
         }
+
+        // --------- maxTypeDepth = 0-----------------
+        /*[Test]//+
+        public void TestCircularLoop_PersonDepth0()
+        {
+            Person p1 = _faker.Create<Person>();
+            Assert.IsNotNull(p1.Parent);
+            Assert.IsNull(p1.Parent.Parent);
+        }
+
+        [Test]//+
+        public void TestCircularLoop_ABCDepth0()
+        {
+            A a = _faker.Create<A>();
+            Assert.IsNotNull(a.B);
+            Assert.IsNotNull(a.B.C);
+            Assert.IsNotNull(a.B.C.A.B.C);
+            Assert.IsNull(a.B.C.A.B.C.A);
+        }*/
+
+
+        [Test]//+
+        public void TestPropertiesSetter_ABC()
+        {
+            User user2 = _faker.Create<User>();
+            Assert.IsNotNull(user2.Id);
+        }
+
+        [Test]
+        public void TestStruct_Constructor()
+        {
+            PersonStruct person = _faker.Create<PersonStruct>();
+        }
+
     }
 }
