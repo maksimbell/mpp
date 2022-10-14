@@ -1,7 +1,7 @@
 ﻿using Faker.Core.Generator;
+using Faker.Core.Service;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using System.Data;
 using System.Reflection;
 
 namespace Faker.Core.Faker
@@ -24,7 +24,7 @@ namespace Faker.Core.Faker
             { typeof(IList), new ListGenerator() }
         };
 
-        public CustomFaker(){}
+        public CustomFaker() { }
 
         public T Create<T>()
         {
@@ -92,7 +92,10 @@ namespace Faker.Core.Faker
 
                     return obj;
                 }
-                catch{}
+                catch (Exception ex)
+                {
+                    throw new ConstructorException();
+                }
             }
 
             return GetDefaultValue(type);
@@ -102,7 +105,7 @@ namespace Faker.Core.Faker
         {
             foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
             {
-                if (propertyInfo.GetSetMethod() != null && 
+                if (propertyInfo.GetSetMethod() != null &&
                     propertyInfo.GetValue(obj) == GetDefaultValue(propertyInfo.PropertyType))
                 {
                     propertyInfo.SetValue(obj, Create(propertyInfo.PropertyType));

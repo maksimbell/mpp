@@ -106,7 +106,6 @@ namespace Faker.Tests
             Assert.IsNotNull(a.B);
             Assert.IsNotNull(a.B.C);
             Assert.IsNull(a.B.C.A.B.C.A);
-            //after constructor??
         }
 
         // --------- maxTypeDepth = 0-----------------
@@ -137,10 +136,17 @@ namespace Faker.Tests
         }
 
         [Test]
-        public void TestStruct_Constructor()
+        public void Test_StructConstructor()
         {
-            PersonStruct person = _faker.Create<PersonStruct>();
+            Human person = _faker.Create<Human>();
+            Assert.IsNotNull(person.name);
+            Assert.That(person.GetType(), Is.EqualTo(typeof(Human)));
         }
 
+        [Test]
+        public void Test_ExceptionConstructor()
+        {
+            Assert.Throws<ConstructorException>(() => _faker.Create<ConstructorWithExClass>());
+        }
     }
 }
