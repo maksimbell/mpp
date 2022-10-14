@@ -15,19 +15,10 @@ namespace Faker.Core.Generator
         public object Generate(Type typeToGenerate, GeneratorContext context)
         {
             var list = (IList)Activator.CreateInstance(typeToGenerate)!;
-
-            /*var createMethod = context.Faker
-                .GetType()
-                .GetMethods()
-                .Where(method => method.IsGenericMethod && method.Name == "Create")
-                .First()
-                .MakeGenericMethod(typeToGenerate.GetGenericArguments().First());*/
-
             var length = context.Random.Next(MinListLength, MaxListLength);
 
             for (int i = 0; i < length; i++)
             {
-                //list.Add(createMethod?.Invoke(context.Faker, new object[] { }));
                 list.Add(context.Faker.Create(typeToGenerate.GetGenericArguments().First()));
             }
 

@@ -10,7 +10,12 @@ namespace Faker.Core.Generator
     {
         public object Generate(Type typeToGenerate, GeneratorContext context)
         {
-            return new DateTime(2020, 9, 1);
+            int range = (DateTime.Now - DateTime.MinValue).Days;
+
+            return DateTime.MinValue
+                .AddDays(context.Random.Next(range))
+                .AddHours(context.Random.Next(24))
+                .AddMinutes(context.Random.Next(60));
         }
         public bool CanGenerate(Type type)
         {

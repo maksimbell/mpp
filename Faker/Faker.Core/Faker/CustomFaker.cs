@@ -11,6 +11,7 @@ namespace Faker.Core.Faker
         private Dictionary<Type, IValueGenerator> _generators;
         private List<Type> _usedTypes;
         private const int MaxTypeDepth = 1;
+
         public CustomFaker()
         {
             _generators = new Dictionary<Type, IValueGenerator>();
@@ -36,7 +37,6 @@ namespace Faker.Core.Faker
         public T Create<T>()
         {
             _usedTypes = new List<Type>();
-
             return (T)Create(typeof(T));
         }
 

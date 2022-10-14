@@ -28,13 +28,15 @@ namespace Faker.Tests
         [Test]
         public void TestChar_Equals()
         {
+            char ch = _faker.Create<char>();
             Assert.That(_faker.Create<char>().GetType(), Is.EqualTo(typeof(char)));
         }
 
         [Test]
         public void TestDateTime_Equals()
         {
-            Assert.That(_faker.Create<DateTime>().GetType(), Is.EqualTo(typeof(DateTime)));
+            DateTime date = _faker.Create<DateTime>();
+            Assert.That(date.GetType(), Is.EqualTo(typeof(DateTime)));
         }
 
         [Test]
@@ -84,6 +86,15 @@ namespace Faker.Tests
         {
             Person person = _faker.Create<Person>();
             Assert.That(person.GetType(), Is.EqualTo(typeof(Person)));
+        }
+
+        [Test]
+        public void TestABC_Equals()
+        {
+            A a = _faker.Create<A>();
+            Assert.That(a.GetType(), Is.EqualTo(typeof(A)));
+
+            //b null prollem
         }
     }
 }

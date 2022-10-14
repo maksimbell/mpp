@@ -10,12 +10,11 @@ namespace Faker.Core.Generator
     {
         public object Generate(Type typeToGenerate, GeneratorContext context)
         {
-            //char.MaxValue / 2
-            int length = context.Random.Next(5);
+            int length = context.Random.Next(10);
             string str = String.Empty;
             for (int i = 0; i < length; i++)
             {
-                str += (char)context.Random.Next(1, char.MaxValue);
+                str += (char)context.Random.Next(1, 256);
             }
             return str;
         }
