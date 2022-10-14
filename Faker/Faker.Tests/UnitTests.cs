@@ -143,10 +143,17 @@ namespace Faker.Tests
             Assert.That(person.GetType(), Is.EqualTo(typeof(Human)));
         }
 
-        [Test]
+        /*[Test]
         public void Test_ExceptionConstructor()
         {
             Assert.Throws<ConstructorException>(() => _faker.Create<ConstructorWithExClass>());
-        }
+        }*/
+
+        /*[Test]
+        public void Test_PrivateConstructor()
+        {
+            PrivateConstructor privateConstructor = _faker.Create<PrivateConstructor>();
+
+        }*/
     }
 }

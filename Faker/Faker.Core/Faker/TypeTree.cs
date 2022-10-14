@@ -10,6 +10,12 @@
             Root = new Node();
             Current = Root;
         }
+
+        public void Clear()
+        {
+            Root = null;
+            Current = null;
+        }
     }
 
     public class Node
@@ -32,20 +38,20 @@
 
         public int GetRepetitions(Type type)
         {
-            int repititionsCount = 0;
+            int repetitions = 0;
             Node currentNode = this;
 
             while (currentNode.Type != null)
             {
                 if (currentNode.Type == type)
                 {
-                    repititionsCount++;
+                    repetitions++;
                 }
 
                 currentNode = currentNode.Parent;
             }
 
-            return repititionsCount;
+            return repetitions;
         }
 
     }

@@ -9,7 +9,7 @@ namespace Faker.Core.Faker
     public class CustomFaker : IFaker
     {
         private const int MaxTypeDepth = 1;
-        private TypeTree _tree;
+        private TypeTree _tree = new TypeTree();
 
         private Dictionary<Type, IValueGenerator> _generators = new Dictionary<Type, IValueGenerator>
         {
@@ -32,8 +32,11 @@ namespace Faker.Core.Faker
             return (T)Create(typeof(T));
         }
 
-        public object Create(Type t)
+        public object? Create(Type t)
         {
+            if (null == _tree.Current)
+                _tree.Clear();
+
             Node node = new Node(t);
             node.Parent = _tree.Current;
             _tree.Current.AddChild(node);
