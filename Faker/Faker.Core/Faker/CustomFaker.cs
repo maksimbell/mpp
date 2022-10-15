@@ -95,10 +95,7 @@ namespace Faker.Core.Faker
 
                     return obj;
                 }
-                catch (Exception ex)
-                {
-                    throw new ConstructorException();
-                }
+                catch (Exception ex) { }
             }
 
             return GetDefaultValue(type);
@@ -108,8 +105,12 @@ namespace Faker.Core.Faker
         {
             foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
             {
-                if (propertyInfo.GetSetMethod() != null &&
-                    propertyInfo.GetValue(obj) == GetDefaultValue(propertyInfo.PropertyType))
+                var value = propertyInfo.GetValue(obj, null);
+
+                if (propertyInfo.GetSetMethod() != null 
+                    && (value == null
+                    || string.IsNullOrEmpty(value.ToString())
+                    || value.ToString().Equals("0")))
                 {
                     propertyInfo.SetValue(obj, Create(propertyInfo.PropertyType));
                     _tree.Current = _tree.Current.Parent;
