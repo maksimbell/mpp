@@ -106,7 +106,7 @@ namespace Faker.Core.Faker
             foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
             {
                 var value = propertyInfo.GetValue(obj, null);
-
+                    
                 if (propertyInfo.GetSetMethod() != null 
                     && (value == null
                     || string.IsNullOrEmpty(value.ToString())
@@ -120,9 +120,14 @@ namespace Faker.Core.Faker
 
         private void SetFields(Object obj)
         {
-            foreach (FieldInfo fieldInfo in obj.GetType().GetFields(BindingFlags.Instance))
+            foreach (FieldInfo fieldInfo in obj.GetType().GetFields())
             {
-                if (!fieldInfo.IsInitOnly)
+                var value = fieldInfo.GetValue(obj);
+
+                if (!fieldInfo.IsInitOnly
+                    && (value == null
+                    || string.IsNullOrEmpty(value.ToString())
+                    || value.ToString().Equals("0")))
                 {
                     fieldInfo.SetValue(obj, Create(fieldInfo.FieldType));
                     _tree.Current = _tree.Current.Parent;

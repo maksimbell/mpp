@@ -13,7 +13,6 @@ namespace Faker.Tests
             _faker = new CustomFaker();
         }
 
-        //---------type---------//
         [Test]
         public void TestGeneratedType_Equals()
         {
@@ -34,7 +33,6 @@ namespace Faker.Tests
             Assert.That(_faker.Create<string>().GetType(), Is.EqualTo(typeof(string)));
         }
 
-        // --------- maxTypeDepth = 1-----------------
         [Test]
         public void TestCircularLoop_PersonDepth1()
         {
@@ -71,7 +69,6 @@ namespace Faker.Tests
             Assert.IsNull(a.B.C.A.B.C.A);
         }*/
 
-
         [Test]
         public void TestPropertiesSetter_ABC()
         {
@@ -95,9 +92,10 @@ namespace Faker.Tests
         }
 
         [Test]
-        public void Test_PrivateConstructor()
+        public void Test_NoConstructors()
         {
-            PrivateConstructor privateConstructor = _faker.Create<PrivateConstructor>();
+            Assert.IsNull(_faker.Create<PrivateConstructor>());
+            Assert.IsNotNull(_faker.Create<NoConstructorClass>());
         }
     }
 }

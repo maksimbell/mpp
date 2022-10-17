@@ -4,7 +4,7 @@
     {
         public object Generate(Type typeToGenerate, GeneratorContext context)
         {
-            int length = context.Random.Next(10);
+            int length = context.Random.Next(1, 10);
             string str = String.Empty;
 
             for (int i = 0; i < length; i++)
