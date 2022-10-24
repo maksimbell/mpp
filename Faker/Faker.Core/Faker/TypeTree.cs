@@ -41,9 +41,9 @@
             int repetitions = 0;
             Node currentNode = this;
 
-            while (currentNode.Type != null)
+            while(currentNode.Type != null)
             {
-                if (currentNode.Type == type)
+                if(currentNode.Type == type)
                 {
                     repetitions++;
                 }

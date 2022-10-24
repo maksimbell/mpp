@@ -13,6 +13,23 @@ namespace Faker.Tests
             _faker = new CustomFaker();
         }
 
+        /*[TestCase(typeof(int))]
+        [TestCase(typeof(long))]
+        [TestCase(typeof(char))]
+        [TestCase(typeof(long))]
+        [TestCase(typeof(float))]
+        [TestCase(typeof(double))]
+        [TestCase(typeof(User))]
+        [TestCase(typeof(DateTime))]
+        [TestCase(typeof(string))]
+        [TestCase(typeof(bool))]
+        [TestCase(typeof(List<List<int>>))]
+        [TestCase(typeof(List))]
+        public void TestGeneratedType_True<T>(T instance)
+        {
+            Assert.That(_faker.Create<T>().GetType(), Is.EqualTo(typeof(T)));
+        }*/
+
         [Test]
         public void TestGeneratedType_Equals()
         {
@@ -89,6 +106,18 @@ namespace Faker.Tests
         {
             Assert.IsNull(_faker.Create<ConstructorWithExClass>());
             Assert.IsNotNull(_faker.Create<ConstructorWithExClass2>());
+
+            try
+            {
+                _faker.Create<ClassWithNewEx>();
+                Assert.IsTrue(false);
+            }
+            catch(Exception ex) {
+                if(ex.InnerException is MissingMethodException)
+                    Assert.IsTrue(true);
+            }
+
+            //Assert.Throws<Exception>(() => _faker.Create<ClassWithNewEx>());
         }
 
         [Test]
