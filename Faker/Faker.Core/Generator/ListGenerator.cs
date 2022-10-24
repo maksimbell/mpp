@@ -11,7 +11,7 @@ namespace Faker.Core.Generator
             var list = (IList)Activator.CreateInstance(typeToGenerate)!;
             var length = context.Random.Next(MinListLength, MaxListLength);
 
-            for (int i = 0; i < length; i++)
+            for(int i = 0; i < length; i++)
             {
                 list.Add(context.Faker.Create(typeToGenerate.GetGenericArguments().First()));
             }

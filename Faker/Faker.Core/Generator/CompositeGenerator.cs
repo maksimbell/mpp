@@ -10,12 +10,12 @@ namespace Faker.Core.Generator
                 .GetConstructors(BindingFlags.Instance | BindingFlags.Public)
                 .OrderByDescending(ctor => ctor.GetParameters().Length);
 
-            foreach (var ctor in constructors)
+            foreach(var ctor in constructors)
             {
                 var parametersList = new List<object>();
                 var ctorParameters = ctor.GetParameters();
 
-                foreach (var parameter in ctorParameters)
+                foreach(var parameter in ctorParameters)
                 {
                     parametersList.Add(context.Faker.Create(parameter.ParameterType));
 

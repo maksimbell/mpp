@@ -29,12 +29,13 @@ namespace Faker.Core.Faker
         public T Create<T>()
         {
             _tree = new TypeTree();
+
             return (T)Create(typeof(T));
         }
 
-        public object? Create(Type t)
+        public object Create(Type t)
         {
-            if (null == _tree.Current)
+            if(null == _tree.Current)
                 _tree.Clear();
 
             Node node = new Node(t);
@@ -42,28 +43,26 @@ namespace Faker.Core.Faker
             _tree.Current.AddChild(node);
             _tree.Current = node;
 
-            if (_tree.Current.Parent.GetRepetitions(t) > MaxTypeDepth)
+            if(_tree.Current.Parent.GetRepetitions(t) > MaxTypeDepth)
                 return null;
 
-            var generator = _generators.FirstOrDefault(generator => generator.Key.IsAssignableFrom(t)).Value;
+            //var generator = _generators.FirstOrDefault(generator => generator.Key.IsAssignableFrom(t)).Value;
+            var generator = _generators.FirstOrDefault(generator => generator.Value.CanGenerate(t)).Value;
 
-            if (null == generator)
+            if(null == generator)
             {
                 return CreateWithConstructor(t);
             }
-
-            if (generator.CanGenerate(t))
+            else
             {
                 Random random = new Random();
                 return generator.Generate(t, new GeneratorContext(random, this));
             }
-            else
-                return GetDefaultValue(t);
         }
 
         private static object GetDefaultValue(Type t)
         {
-            if (t.IsValueType)
+            if(t.IsValueType)
                 return Activator.CreateInstance(t);
             else
                 return null;
@@ -75,12 +74,12 @@ namespace Faker.Core.Faker
                 .GetConstructors(BindingFlags.Instance | BindingFlags.Public)
                 .OrderByDescending(ctor => ctor.GetParameters().Length);
 
-            foreach (var ctor in constructors)
+            foreach(var ctor in constructors)
             {
                 var parametersList = new List<object>();
                 var ctorParameters = ctor.GetParameters();
 
-                foreach (var parameter in ctorParameters)
+                foreach(var parameter in ctorParameters)
                 {
                     parametersList.Add(Create(parameter.ParameterType));
                     _tree.Current = _tree.Current.Parent;
@@ -95,9 +94,11 @@ namespace Faker.Core.Faker
 
                     return obj;
                 }
-                catch (Exception ex)
-                {
-                    throw new ConstructorException();
+                catch(Exception ex) { 
+                    if(ex.InnerException is not ConstructorException)
+                    {
+                        throw;
+                    }
                 }
             }
 
@@ -106,10 +107,14 @@ namespace Faker.Core.Faker
 
         private void SetProperties(Object obj)
         {
-            foreach (PropertyInfo propertyInfo in obj.GetType().GetProperties())
+            foreach(PropertyInfo propertyInfo in obj.GetType().GetProperties())
             {
-                if (propertyInfo.GetSetMethod() != null &&
-                    propertyInfo.GetValue(obj) == GetDefaultValue(propertyInfo.PropertyType))
+                var value = propertyInfo.GetValue(obj, null);
+
+                if(propertyInfo.GetSetMethod() != null
+                    && (value == null
+                    || string.IsNullOrEmpty(value.ToString())
+                    || value.ToString().Equals("0")))
                 {
                     propertyInfo.SetValue(obj, Create(propertyInfo.PropertyType));
                     _tree.Current = _tree.Current.Parent;
@@ -119,9 +124,14 @@ namespace Faker.Core.Faker
 
         private void SetFields(Object obj)
         {
-            foreach (FieldInfo fieldInfo in obj.GetType().GetFields(BindingFlags.Instance))
+            foreach(FieldInfo fieldInfo in obj.GetType().GetFields())
             {
-                if (!fieldInfo.IsInitOnly)
+                var value = fieldInfo.GetValue(obj);
+
+                if(!fieldInfo.IsInitOnly
+                    && (value == null
+                    || string.IsNullOrEmpty(value.ToString())
+                    || value.ToString().Equals("0")))
                 {
                     fieldInfo.SetValue(obj, Create(fieldInfo.FieldType));
                     _tree.Current = _tree.Current.Parent;
