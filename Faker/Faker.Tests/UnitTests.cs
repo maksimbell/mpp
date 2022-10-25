@@ -54,77 +54,57 @@ namespace Faker.Tests
         public void TestCircularLoop_PersonDepth1()
         {
             Person p1 = _faker.Create<Person>();
-            Assert.IsNotNull(p1.Parent);
-            Assert.IsNull(p1.Parent.Parent);
+            Assert.That(p1.Parent, Is.Not.Null);
+            Assert.That(p1.Parent.Parent, Is.Null);
         }
 
         [Test]
         public void TestCircularLoop_ABCDepth1()
         {
             A a = _faker.Create<A>();
-            Assert.IsNotNull(a.B);
-            Assert.IsNotNull(a.B.C);
-            Assert.IsNull(a.B.C.A.B.C.A);
+            Assert.That(a.B, Is.Not.Null);
+            Assert.That(a.B.C, Is.Not.Null);
+            Assert.That(a.B.C.A.B.C.A, Is.Null);
         }
-
-        // --------- maxTypeDepth = 0-----------------
-        /*[Test]//+
-        public void TestCircularLoop_PersonDepth0()
-        {
-            Person p1 = _faker.Create<Person>();
-            Assert.IsNotNull(p1.Parent);
-            Assert.IsNull(p1.Parent.Parent);
-        }
-
-        [Test]//+
-        public void TestCircularLoop_ABCDepth0()
-        {
-            A a = _faker.Create<A>();
-            Assert.IsNotNull(a.B);
-            Assert.IsNotNull(a.B.C);
-            Assert.IsNotNull(a.B.C.A.B.C);
-            Assert.IsNull(a.B.C.A.B.C.A);
-        }*/
 
         [Test]
-        public void TestPropertiesSetter_ABC()
+        public void TestABC_NonConstrPropsSet()
         {
             User user2 = _faker.Create<User>();
-            Assert.IsNotNull(user2.Id);
+            Assert.That(user2.Id, Is.Not.EqualTo(0));
         }
 
         [Test]
         public void Test_StructConstructor()
         {
             Human person = _faker.Create<Human>();
-            Assert.IsNotNull(person.name);
+            Assert.That(person.name, Is.Not.Null);
             Assert.That(person.GetType(), Is.EqualTo(typeof(Human)));
         }
 
         [Test]
         public void Test_ExceptionConstructor()
         {
-            Assert.IsNull(_faker.Create<ConstructorWithExClass>());
-            Assert.IsNotNull(_faker.Create<ConstructorWithExClass2>());
+            Assert.That(_faker.Create<ConstructorWithExClass>(), Is.Null);
+            Assert.That(_faker.Create<ConstructorWithExClass2>(), Is.Not.Null);
 
             try
             {
                 _faker.Create<ClassWithNewEx>();
                 Assert.IsTrue(false);
             }
-            catch(Exception ex) {
+            catch(Exception ex)
+            {
                 if(ex.InnerException is MissingMethodException)
                     Assert.IsTrue(true);
             }
-
-            //Assert.Throws<Exception>(() => _faker.Create<ClassWithNewEx>());
         }
 
         [Test]
         public void Test_NoConstructors()
         {
-            Assert.IsNull(_faker.Create<PrivateConstructor>());
-            Assert.IsNotNull(_faker.Create<NoConstructorClass>());
+            Assert.That(_faker.Create<PrivateConstructor>(), Is.Null);
+            Assert.That(_faker.Create<NoConstructorClass>(), Is.Not.Null);
         }
     }
 }

@@ -14,6 +14,7 @@
 
             return str;
         }
+
         public bool CanGenerate(Type type)
         {
             return type == typeof(string);

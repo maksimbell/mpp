@@ -40,10 +40,10 @@ namespace Faker.Core.Faker
 
             Node node = new Node(t);
             node.Parent = _tree.Current;
-            _tree.Current.AddChild(node);
+            _tree.Current?.AddChild(node);
             _tree.Current = node;
 
-            if(_tree.Current.Parent.GetRepetitions(t) > MaxTypeDepth)
+            if(_tree.Current.Parent!.GetRepetitions(t) > MaxTypeDepth)
                 return null;
 
             //var generator = _generators.FirstOrDefault(generator => generator.Key.IsAssignableFrom(t)).Value;
@@ -60,7 +60,7 @@ namespace Faker.Core.Faker
             }
         }
 
-        private static object GetDefaultValue(Type t)
+        private static object? GetDefaultValue(Type t)
         {
             if(t.IsValueType)
                 return Activator.CreateInstance(t);
@@ -82,7 +82,7 @@ namespace Faker.Core.Faker
                 foreach(var parameter in ctorParameters)
                 {
                     parametersList.Add(Create(parameter.ParameterType));
-                    _tree.Current = _tree.Current.Parent;
+                    _tree.Current = _tree.Current?.Parent;
                 }
 
                 try
@@ -94,7 +94,8 @@ namespace Faker.Core.Faker
 
                     return obj;
                 }
-                catch(Exception ex) { 
+                catch(Exception ex)
+                {
                     if(ex.InnerException is not ConstructorException)
                     {
                         throw;
@@ -111,10 +112,12 @@ namespace Faker.Core.Faker
             {
                 var value = propertyInfo.GetValue(obj, null);
 
-                if(propertyInfo.GetSetMethod() != null
-                    && (value == null
-                    || string.IsNullOrEmpty(value.ToString())
-                    || value.ToString().Equals("0")))
+                if(
+                        propertyInfo.GetSetMethod() != null
+                        && (value == null || 
+                        string.IsNullOrEmpty(value.ToString()) ||
+                        value.ToString().Equals("0"))
+                    )
                 {
                     propertyInfo.SetValue(obj, Create(propertyInfo.PropertyType));
                     _tree.Current = _tree.Current.Parent;
@@ -128,13 +131,17 @@ namespace Faker.Core.Faker
             {
                 var value = fieldInfo.GetValue(obj);
 
-                if(!fieldInfo.IsInitOnly
-                    && (value == null
-                    || string.IsNullOrEmpty(value.ToString())
-                    || value.ToString().Equals("0")))
+                if(
+                    !fieldInfo.IsInitOnly &&
+                    (
+                        value == null ||
+                        string.IsNullOrEmpty(value.ToString()) ||
+                        value.ToString()?.Equals("0") == null
+                    )
+                )
                 {
                     fieldInfo.SetValue(obj, Create(fieldInfo.FieldType));
-                    _tree.Current = _tree.Current.Parent;
+                    _tree.Current = _tree.Current?.Parent;
                 }
             }
         }

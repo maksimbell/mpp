@@ -6,6 +6,7 @@
         {
             return context.Random.Next(2) == 1;
         }
+
         public bool CanGenerate(Type type)
         {
             return type == typeof(bool);

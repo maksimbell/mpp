@@ -6,6 +6,7 @@
         {
             return context.Random.NextDouble() * (double.MaxValue - double.MinValue) + double.MinValue;
         }
+
         public bool CanGenerate(Type type)
         {
             return type == typeof(double);

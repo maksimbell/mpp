@@ -6,6 +6,7 @@ namespace Faker.Core.Generator
     {
         private const int MinListLength = 1;
         private const int MaxListLength = 2;
+
         public object Generate(Type typeToGenerate, GeneratorContext context)
         {
             var list = (IList)Activator.CreateInstance(typeToGenerate)!;
@@ -18,6 +19,7 @@ namespace Faker.Core.Generator
 
             return list;
         }
+
         public bool CanGenerate(Type type)
         {
             return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);

@@ -11,6 +11,7 @@
                 .AddHours(context.Random.Next(24))
                 .AddMinutes(context.Random.Next(60));
         }
+
         public bool CanGenerate(Type type)
         {
             return type == typeof(DateTime);

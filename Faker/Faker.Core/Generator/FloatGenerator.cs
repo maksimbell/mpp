@@ -6,6 +6,7 @@
         {
             return (float)context.Random.NextDouble();
         }
+
         public bool CanGenerate(Type type)
         {
             return type == typeof(float);
