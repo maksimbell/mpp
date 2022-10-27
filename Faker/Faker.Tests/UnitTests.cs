@@ -48,6 +48,7 @@ namespace Faker.Tests
             Assert.That(_faker.Create<List<int>>().GetType(), Is.EqualTo(typeof(List<int>)));
             Assert.That(_faker.Create<User>().GetType(), Is.EqualTo(typeof(User)));
             Assert.That(_faker.Create<string>().GetType(), Is.EqualTo(typeof(string)));
+            Assert.That(_faker.Create<byte>().GetType(), Is.EqualTo(typeof(byte)));
         }
 
         [Test]
@@ -80,6 +81,9 @@ namespace Faker.Tests
             Human person = _faker.Create<Human>();
             Assert.That(person.name, Is.Not.Null);
             Assert.That(person.GetType(), Is.EqualTo(typeof(Human)));
+
+            SomeStruct str = _faker.Create<SomeStruct>();
+            Assert.That(str.name, Is.Not.Null);
         }
 
         [Test]

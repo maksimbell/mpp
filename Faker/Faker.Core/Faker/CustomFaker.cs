@@ -136,7 +136,7 @@ namespace Faker.Core.Faker
                     (
                         value == null ||
                         string.IsNullOrEmpty(value.ToString()) ||
-                        value.ToString()?.Equals("0") == null
+                        value.ToString().Equals("0")
                     )
                 )
                 {
