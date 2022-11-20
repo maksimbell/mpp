@@ -5,7 +5,7 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DirectoryScanner", "DirectoryScanner\DirectoryScanner.csproj", "{6159EDC1-71E9-45BD-9507-4917FEB5C7F7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DirectoryScanner.ScannerApp", "DirectoryScanner.ScannerApp\DirectoryScanner.ScannerApp.csproj", "{F257C3B8-2EAA-425D-85D3-E1B58988A94F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DirectoryScanner.View", "DirectoryScanner.ScannerApp\DirectoryScanner.View.csproj", "{F257C3B8-2EAA-425D-85D3-E1B58988A94F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DirectoryScanner.Tests", "DirectoryScanner.Tests\DirectoryScanner.Tests.csproj", "{E4F4CA6C-26FF-4A9A-8F7C-F57682C8CBCC}"
 EndProject

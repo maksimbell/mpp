@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DirectoryScanner.ScannerApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="375" Width="496">
     <Grid>
-
+        <Button x:Name="btnOpen" Content="Open" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" Height="22" Width="72"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="140,40,0,0" VerticalAlignment="Top" FontSize="14" FontFamily="Calibri" Height="22" Width="72"/>
+        <TreeView x:Name="FileTree" Margin="40,87,113,34">
+            <TreeView.ItemsSource>
+                <InputBindingCollection/>
+            </TreeView.ItemsSource>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate/>
+            </TreeView.ItemTemplate>
+        </TreeView>
     </Grid>
 </Window>
