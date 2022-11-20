@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DirectoryScanner.Model
 {
-    public class DirectoryNode
+    public class DirectoryNode: IDirectoryComponent
     {
         public string Name { get; set; }
 
@@ -14,7 +15,7 @@ namespace DirectoryScanner.Model
 
         public double Percentage { get; set; }
 
-        public IList<FileNode> ChildNodes;
+        public ObservableCollection<FileNode> ChildNodes;
 
         public DirectoryNode(string name, int size, double percentage)
         {

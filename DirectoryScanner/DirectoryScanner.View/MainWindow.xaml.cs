@@ -12,17 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DirectoryScanner.ViewModel;
 
-namespace DirectoryScanner.ScannerApp
+namespace DirectoryScanner.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new DirectoryScannerViewModel();
         }
     }
 }
