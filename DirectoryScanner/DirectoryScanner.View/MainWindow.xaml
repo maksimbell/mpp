@@ -5,10 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:viewmodel="clr-namespace:DirectoryScanner.ViewModel;assembly=DirectoryScanner" d:DataContext="{d:DesignInstance Type=viewmodel:DirectoryScannerViewModel}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="589">
     <Grid>
         <Button Content="Open" HorizontalAlignment="Left" Margin="62,74,0,0" VerticalAlignment="Top" Command="{Binding StartScanner}"/>
         <Button Content="Cancel" HorizontalAlignment="Left" Margin="142,74,0,0" VerticalAlignment="Top" Height="20"/>
-
+        <TreeView x:Name="directoryTreeView" Margin="38,136,188,54">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=Childs}">
+                    <TextBlock Text="{Binding Name}" />  
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
     </Grid>
 </Window>
