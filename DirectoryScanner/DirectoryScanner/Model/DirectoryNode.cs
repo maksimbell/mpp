@@ -15,11 +15,15 @@ namespace DirectoryScanner.Model
 
         public double Percentage { get; set; }
 
-        public ObservableCollection<FileNode> ChildNodes;
+        public string FullName { get; set; }
 
-        public DirectoryNode(string name, int size, double percentage)
+        public ObservableCollection<IDirectoryComponent> ChildNodes = 
+            new ObservableCollection<IDirectoryComponent>();
+
+        public DirectoryNode(string name, string fullName, int size = 0, double percentage = 0)
         {
             Name = name;
+            FullName = fullName;
             Size = size;
             Percentage = percentage;
         }

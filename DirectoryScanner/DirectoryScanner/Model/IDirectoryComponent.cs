@@ -13,5 +13,7 @@ namespace DirectoryScanner.Model
         public int Size { get; set; }
 
         public double Percentage { get; set; }
+
+        public string FullName { get; set; }
     }
 }

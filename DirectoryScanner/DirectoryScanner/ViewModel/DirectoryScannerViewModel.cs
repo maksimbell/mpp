@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using DirectoryScanner.Model;
 
 namespace DirectoryScanner.ViewModel
 {
@@ -26,6 +27,11 @@ namespace DirectoryScanner.ViewModel
             if(!fbd.ShowDialog().GetValueOrDefault())
                 return;
 
+            CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+            CancellationToken token = cancelTokenSource.Token;
+
+            Scanner scanner = new Scanner(fbd.FileName, token);
+            IDirectoryComponent root = scanner.StartScanner();
         }
     }
 }
