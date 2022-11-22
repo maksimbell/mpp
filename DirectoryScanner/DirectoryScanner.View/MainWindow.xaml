@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         xmlns:impl="clr-namespace:DirectoryScanner.Model;assembly=DirectoryScanner"
         xmlns:local="clr-namespace:DirectoryScanner.ViewModel;assembly=DirectoryScanner"
-        xmlns:viewmodel="clr-namespace:DirectoryScanner.ViewModel;assembly=DirectoryScanner" d:DataContext="{d:DesignInstance Type=viewmodel:DirectoryScannerViewModel}"
+        xmlns:viewmodel="clr-namespace:DirectoryScanner.ViewModel;assembly=DirectoryScanner" xmlns:converters="clr-namespace:DirectoryScanner.View" d:DataContext="{d:DesignInstance Type=viewmodel:DirectoryScannerViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="589">
     <Grid>
@@ -16,14 +16,12 @@
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=ChildNodes}">
                     <DockPanel>
-                        <Image Source="{Binding Icon}" Margin="0,0,0,0" Width="25" Height="20"/>
+                        <Image Width="30" Source="{Binding Path=Type, Converter={converters:TypeToSourceConverter}}">
+                        </Image>
                         <TextBlock>
-                           <Run Text=" "/> 
-                           <Run Text="{Binding Name}"/>
-                           <Run Text=" "/> 
-                           <Run Text="{Binding Size}"/>
-                           <Run Text=" "/> 
-                           <Run Text="{Binding Percentage}"/>
+                           <Run Text=" "/><Run Text="{Binding Name}"/><Run Text=" "/>
+                            <Run Text="{Binding Size}"/><Run Text=" "/>
+                            <Run Text="{Binding Percentage}"/><Run Text="%"/>
                         </TextBlock>
                     </DockPanel>
                 </HierarchicalDataTemplate>

@@ -18,5 +18,7 @@ namespace DirectoryScanner.Model
         public string FullName { get; set; }
 
         public ObservableCollection<IDirectoryComponent> ChildNodes { get; set; }
+
+        public ComponentType Type { get; set; } 
     }
 }

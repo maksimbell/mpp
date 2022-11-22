@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DirectoryScanner.Model
 {
-    public class DirectoryNode: IDirectoryComponent
+    public class DirectoryNode
     {
         public string Name { get; set; }
 

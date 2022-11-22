@@ -2,7 +2,7 @@
 
 namespace DirectoryScanner.Model
 {
-    public class FileNode: IDirectoryComponent
+    public class FileNode
     {
         public string Name { get; set; }
 

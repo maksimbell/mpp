@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace DirectoryScanner.Model
 {
@@ -19,12 +21,16 @@ namespace DirectoryScanner.Model
 
         public ObservableCollection<IDirectoryComponent> ChildNodes { get; set; }
 
-        public DirectoryComponent(string name, string fullName, int size = 0, double percentage = 0)
+        public ComponentType Type { get; set; }
+
+        public DirectoryComponent(string name, string fullName, ComponentType type, 
+            int size = 0, double percentage = 0)
         {
             Name = name;
             FullName = fullName;
             Size = size;
             Percentage = percentage;
+            Type = type;
             ChildNodes = new ObservableCollection<IDirectoryComponent>();
         }
     }

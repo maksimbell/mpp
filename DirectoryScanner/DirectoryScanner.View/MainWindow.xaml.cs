@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DirectoryScanner.Model;
 using DirectoryScanner.ViewModel;
 
 namespace DirectoryScanner.View
@@ -27,12 +28,7 @@ namespace DirectoryScanner.View
             DirectoryScannerViewModel viewModel = new DirectoryScannerViewModel();
             DataContext = viewModel;
 
-            //viewModel.TestBinding = "Success";
-
             InitializeComponent();
-
-            //viewModel.TestBinding = "Changed";
-            //viewModel.OnPropertyChanged("TestBinding");
         }
     }
 }

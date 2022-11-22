@@ -13,12 +13,6 @@ namespace DirectoryScanner.ViewModel
 {
     public class DirectoryScannerViewModel: INotifyPropertyChanged
     {
-        public string TestBinding { get; set; }
-
-        //private Scanner _scanner;
-        
-        //public Scanner Scanner { get { return _scanner; } }
-
         private IDirectoryComponent _root;
 
         public IDirectoryComponent Root { 
