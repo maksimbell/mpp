@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DirectoryScanner.Model
 {
-    public interface IDirectoryComponent
+    public class DirectoryComponent : IDirectoryComponent
     {
         public string Name { get; set; }
 
@@ -18,5 +18,14 @@ namespace DirectoryScanner.Model
         public string FullName { get; set; }
 
         public ObservableCollection<IDirectoryComponent> ChildNodes { get; set; }
+
+        public DirectoryComponent(string name, string fullName, int size = 0, double percentage = 0)
+        {
+            Name = name;
+            FullName = fullName;
+            Size = size;
+            Percentage = percentage;
+            ChildNodes = new ObservableCollection<IDirectoryComponent>();
+        }
     }
 }

@@ -17,8 +17,7 @@ namespace DirectoryScanner.Model
 
         public string FullName { get; set; }
 
-        public ObservableCollection<IDirectoryComponent> ChildNodes = 
-            new ObservableCollection<IDirectoryComponent>();
+        public ObservableCollection<IDirectoryComponent> ChildNodes { get; set; }
 
         public DirectoryNode(string name, string fullName, int size = 0, double percentage = 0)
         {

@@ -1,25 +1,37 @@
 ﻿using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DirectoryScanner.Model
 {
-    public class DirectoryScannerModel: BindableBase
+    public class DirectoryScannerModel : INotifyPropertyChanged
     {
-        public string DirectoryPath;
+        private Scanner _scanner;
 
-        public DirectoryScannerModel()
+        public DirectoryScannerModel(Scanner scanner)
         {
-            DirectoryPath = string.Empty;
+            _scanner = scanner;
         }
 
-        public void SetDirectory(string path)
+        public DirectoryNode Root
         {
-            DirectoryPath = path;
-            RaisePropertyChanged("DirectoryPath");
+            get { return _scanner.Root; }
+            set { 
+                _scanner.Root = value; 
+                OnPropertyChanged(nameof(Root));
+            }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

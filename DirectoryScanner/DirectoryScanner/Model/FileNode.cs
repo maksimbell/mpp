@@ -12,6 +12,11 @@ namespace DirectoryScanner.Model
 
         public string FullName { get; set; }
 
+        public ObservableCollection<IDirectoryComponent> ChildNodes { 
+            get => throw new NotImplementedException(); 
+            set => throw new NotImplementedException(); 
+        }
+
         public FileNode(string name, string fullName, int size = 0, double percentage = 0)
         {
             Name = name;

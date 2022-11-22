@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -11,14 +13,24 @@ namespace DirectoryScanner.ViewModel
 {
     public class DirectoryScannerViewModel: INotifyPropertyChanged
     {
+        private Scanner _scanner;
+        
+        public Scanner Scanner { get { return _scanner; } }
+
+        public DirectoryNode Root { 
+            get { return _scanner.Root; }
+            set
+            {
+                _scanner.Root = value;
+                OnPropertyChanged("Root");
+            }
+        }
 
         private BaseCommand _startScanner;
         public BaseCommand StartScanner
         {
             get { return _startScanner ?? new BaseCommand(obj => Scan()); }
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
 
         private void Scan()
         {
@@ -32,6 +44,14 @@ namespace DirectoryScanner.ViewModel
 
             Scanner scanner = new Scanner(fbd.FileName, token);
             IDirectoryComponent root = scanner.StartScanner();
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        public void OnPropertyChanged([CallerMemberName] string prop = "")
+        {
+            if(PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
     }
 }
