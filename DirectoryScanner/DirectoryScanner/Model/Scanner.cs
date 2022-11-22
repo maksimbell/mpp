@@ -14,8 +14,8 @@ namespace DirectoryScanner.Model
     {
         private string _path;
 
-        private DirectoryNode _root;
-        public DirectoryNode Root { 
+        private DirectoryComponent _root;
+        public DirectoryComponent Root { 
             get { return _root; }
             set { _root = value; }
         }
@@ -32,7 +32,7 @@ namespace DirectoryScanner.Model
             _path = path;
             _cancellationToken = token;
             _folderQueue = new ConcurrentQueue<Task>();
-            _root = new DirectoryNode(new DirectoryInfo(_path).Name, _path);
+            _root = new DirectoryComponent(new DirectoryInfo(_path).Name, _path);
             _semaphore = new Semaphore(_threadCount, _threadCount);
         }
 
@@ -49,7 +49,7 @@ namespace DirectoryScanner.Model
             return _root;
         }
 
-        private void ScanDirectory(DirectoryNode dir)
+        private void ScanDirectory(DirectoryComponent dir)
         {
             _semaphore.WaitOne();
 
@@ -57,14 +57,14 @@ namespace DirectoryScanner.Model
 
             foreach(var dirPath in dirInfo.EnumerateDirectories())
             {
-                var child = new DirectoryNode(dirPath.Name, dirPath.FullName);
+                var child = new DirectoryComponent(dirPath.Name, dirPath.FullName);
                 dir.ChildNodes.Add(child);
                 _folderQueue.Enqueue(new Task(() => ScanDirectory(child), _cancellationToken));
             }
 
             foreach(var dirPath in dirInfo.EnumerateFiles())
             {
-                dir.ChildNodes.Add(new FileNode(dirPath.Name, dirPath.FullName));
+                dir.ChildNodes.Add(new DirectoryComponent(dirPath.Name, dirPath.FullName));
             }
 
             _semaphore.Release();

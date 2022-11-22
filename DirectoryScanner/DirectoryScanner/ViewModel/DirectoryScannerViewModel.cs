@@ -17,7 +17,7 @@ namespace DirectoryScanner.ViewModel
         
         public Scanner Scanner { get { return _scanner; } }
 
-        public DirectoryNode Root { 
+        public DirectoryComponent Root { 
             get { return _scanner.Root; }
             set
             {

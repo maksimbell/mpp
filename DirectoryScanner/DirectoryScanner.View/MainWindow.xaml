@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:impl="clr-namespace:DirectoryScanner.Model;assembly=DirectoryScanner"
         xmlns:viewmodel="clr-namespace:DirectoryScanner.ViewModel;assembly=DirectoryScanner" d:DataContext="{d:DesignInstance Type=viewmodel:DirectoryScannerViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="589">
@@ -12,7 +13,17 @@
         <TreeView x:Name="directoryTreeView" Margin="38,136,188,54">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=Childs}">
-                    <TextBlock Text="{Binding Name}" />  
+                    <DockPanel>
+                        <Image Source="{Binding Icon}" Margin="0,0,0,0" Width="25" Height="20"/>
+                        <TextBlock>
+                           <Run Text=" "/> 
+                           <Run Text="{Binding Name}"/>
+                           <Run Text=" "/> 
+                           <Run Text="{Binding Size}"/>
+                           <Run Text=" "/> 
+                           <Run Text="{Binding Percentage}"/>
+                        </TextBlock>
+                    </DockPanel>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
