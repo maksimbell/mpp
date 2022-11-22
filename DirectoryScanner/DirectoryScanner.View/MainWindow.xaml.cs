@@ -24,8 +24,15 @@ namespace DirectoryScanner.View
     {
         public MainWindow()
         {
+            DirectoryScannerViewModel viewModel = new DirectoryScannerViewModel();
+            DataContext = viewModel;
+
+            //viewModel.TestBinding = "Success";
+
             InitializeComponent();
-            DataContext = new DirectoryScannerViewModel();
+
+            //viewModel.TestBinding = "Changed";
+            //viewModel.OnPropertyChanged("TestBinding");
         }
     }
 }

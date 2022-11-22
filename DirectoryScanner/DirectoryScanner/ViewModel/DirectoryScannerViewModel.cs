@@ -13,16 +13,20 @@ namespace DirectoryScanner.ViewModel
 {
     public class DirectoryScannerViewModel: INotifyPropertyChanged
     {
-        private Scanner _scanner;
-        
-        public Scanner Scanner { get { return _scanner; } }
+        public string TestBinding { get; set; }
 
-        public DirectoryComponent Root { 
-            get { return _scanner.Root; }
+        //private Scanner _scanner;
+        
+        //public Scanner Scanner { get { return _scanner; } }
+
+        private IDirectoryComponent _root;
+
+        public IDirectoryComponent Root { 
+            get { return _root; }
             set
             {
-                _scanner.Root = value;
-                OnPropertyChanged("Root");
+                _root = value;
+                OnPropertyChanged("Root");  
             }
         }
 
@@ -43,7 +47,7 @@ namespace DirectoryScanner.ViewModel
             CancellationToken token = cancelTokenSource.Token;
 
             Scanner scanner = new Scanner(fbd.FileName, token);
-            IDirectoryComponent root = scanner.StartScanner();
+            Root = scanner.StartScanner();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
