@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using System.Drawing;
 
 namespace DirectoryScanner.Model
 {
@@ -49,10 +50,12 @@ namespace DirectoryScanner.Model
                     task.Wait(_cancellationToken);
                 }
             }
-            catch(Exception e)
+            catch(OperationCanceledException e)
             {
                 _folderQueue.Clear();
             }
+
+            _root.Size = FindSize(_root);
 
             return Root;
         }
@@ -72,10 +75,30 @@ namespace DirectoryScanner.Model
 
             foreach(var dirPath in dirInfo.EnumerateFiles())
             {
-                dir.ChildNodes.Add(new DirectoryComponent(dirPath.Name, dirPath.FullName, ComponentType.File));
+                dir.ChildNodes.Add(new DirectoryComponent(dirPath.Name, dirPath.FullName, ComponentType.File, dirPath.Length));
             }
 
             _semaphore.Release();
+        }
+
+        private long FindSize(IDirectoryComponent comp)
+        {
+            long size = 0;
+
+            foreach(var node in comp.ChildNodes)
+            {
+                if(node.Type == ComponentType.Directory)
+                {
+                    var childDirSize = FindSize(node);
+                    size += childDirSize;
+                    node.Size = childDirSize;
+                }
+                else
+                {
+                    size += node.Size;
+                }
+            }
+            return size;
         }
     }
 }

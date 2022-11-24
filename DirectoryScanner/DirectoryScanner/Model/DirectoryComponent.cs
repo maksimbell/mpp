@@ -13,7 +13,7 @@ namespace DirectoryScanner.Model
     {
         public string Name { get; set; }
 
-        public int Size { get; set; }
+        public long Size { get; set; }
 
         public double Percentage { get; set; }
 
@@ -24,7 +24,7 @@ namespace DirectoryScanner.Model
         public ComponentType Type { get; set; }
 
         public DirectoryComponent(string name, string fullName, ComponentType type, 
-            int size = 0, double percentage = 0)
+            long size = 0, double percentage = 0)
         {
             Name = name;
             FullName = fullName;
