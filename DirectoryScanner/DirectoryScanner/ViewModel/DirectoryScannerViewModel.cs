@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
@@ -13,7 +14,9 @@ namespace DirectoryScanner.ViewModel
 {
     public class DirectoryScannerViewModel: INotifyPropertyChanged
     {
-        private IDirectoryComponent _root;
+        CancellationTokenSource _cancelTokenSource;
+
+        private IDirectoryComponent? _root;
 
         public IDirectoryComponent Root { 
             get { return _root; }
@@ -24,12 +27,6 @@ namespace DirectoryScanner.ViewModel
             }
         }
 
-        private BaseCommand _startScanner;
-        public BaseCommand StartScanner
-        {
-            get { return _startScanner ?? new BaseCommand(obj => Scan()); }
-        }
-
         private void Scan()
         {
             var fbd = new FolderBrowserForWPF.Dialog();
@@ -37,11 +34,15 @@ namespace DirectoryScanner.ViewModel
             if(!fbd.ShowDialog().GetValueOrDefault())
                 return;
 
-            CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
-            CancellationToken token = cancelTokenSource.Token;
+            _cancelTokenSource = new CancellationTokenSource(); 
+            var token = _cancelTokenSource.Token;
 
-            Scanner scanner = new Scanner(fbd.FileName, token);
-            Root = scanner.StartScanner();
+            Task.Run(() =>
+            {
+                Scanner scanner = new Scanner(token);
+                Root = scanner.StartScanner(fbd.FileName);
+            });
+
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -50,6 +51,24 @@ namespace DirectoryScanner.ViewModel
         {
             if(PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        }
+
+        private BaseCommand? _startScanner;
+        public BaseCommand StartScanner
+        {
+            get { return _startScanner ??= new BaseCommand(obj => Scan()); }
+        }
+
+        private BaseCommand? _cancelScanner;
+        public BaseCommand CancelScanner
+        {
+            get { return _cancelScanner ??= new BaseCommand(obj => Cancel()); }
+        }
+
+        public void Cancel()
+        {
+            _cancelTokenSource.Cancel();
+            _cancelTokenSource.Dispose();
         }
     }
 }

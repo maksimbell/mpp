@@ -27,26 +27,34 @@ namespace DirectoryScanner.Model
         private Semaphore _semaphore;
 
 
-        public Scanner(string path, CancellationToken token)
+        public Scanner(CancellationToken token)
         {
-            _path = path;
             _cancellationToken = token;
             _folderQueue = new ConcurrentQueue<Task>();
-            _root = new DirectoryComponent(new DirectoryInfo(_path).Name, _path, ComponentType.Directory);
             _semaphore = new Semaphore(_threadCount, _threadCount);
         }
 
-        public IDirectoryComponent StartScanner()
+        public IDirectoryComponent StartScanner(string path)
         {
-            _folderQueue.Enqueue(new Task(() =>  ScanDirectory(_root), _cancellationToken));
+            _path = path;
+            _root = new DirectoryComponent(new DirectoryInfo(_path).Name, _path, ComponentType.Directory);
 
-            while(_folderQueue.TryDequeue(out var task))
+            _folderQueue.Enqueue(new Task(() => ScanDirectory(_root), _cancellationToken));
+
+            try
             {
-                task.Start();
-                task.Wait(_cancellationToken);
+                while(_folderQueue.TryDequeue(out var task) && !_cancellationToken.IsCancellationRequested)
+                {
+                    task.Start();
+                    task.Wait(_cancellationToken);
+                }
+            }
+            catch(Exception e)
+            {
+                _folderQueue.Clear();
             }
 
-            return _root;
+            return Root;
         }
 
         private void ScanDirectory(DirectoryComponent dir)
