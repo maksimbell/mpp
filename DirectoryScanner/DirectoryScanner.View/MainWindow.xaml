@@ -20,7 +20,7 @@
                         <TextBlock>
                            <Run Text=" "/><Run Text="{Binding Name}"/><Run Text=" "/>
                             <Run Text="{Binding Size}"/><Run Text=" "/>
-                            <Run Text="{Binding Percentage}"/><Run Text="%"/>
+                            <Run Text="{Binding Percentage, Converter={converters:DoubleToStringConverter}}" /><Run Text="%"/>
                         </TextBlock>
                     </DockPanel>
                 </HierarchicalDataTemplate>

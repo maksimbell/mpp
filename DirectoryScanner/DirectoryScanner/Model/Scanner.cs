@@ -55,7 +55,8 @@ namespace DirectoryScanner.Model
                 _folderQueue.Clear();
             }
 
-            _root.Size = FindSize(_root);
+            _root.Size = CountSize(_root);
+            CountRelativeSize(_root);
 
             return Root;
         }
@@ -81,24 +82,38 @@ namespace DirectoryScanner.Model
             _semaphore.Release();
         }
 
-        private long FindSize(IDirectoryComponent comp)
+        private long CountSize(IDirectoryComponent parentNode)
         {
             long size = 0;
 
-            foreach(var node in comp.ChildNodes)
+            foreach(var childNode in parentNode.ChildNodes)
             {
-                if(node.Type == ComponentType.Directory)
+                if(childNode.Type == ComponentType.Directory)
                 {
-                    var childDirSize = FindSize(node);
+                    var childDirSize = CountSize(childNode);
                     size += childDirSize;
-                    node.Size = childDirSize;
+                    childNode.Size = childDirSize;
                 }
                 else
                 {
-                    size += node.Size;
+                    size += childNode.Size;
                 }
             }
+
             return size;
+        }
+
+        private void CountRelativeSize(IDirectoryComponent parentNode)
+        {
+            foreach(var childNode in parentNode.ChildNodes)
+            {
+                childNode.Percentage = (double)childNode.Size / (double)parentNode.Size * 100;
+
+                if(childNode.Type == ComponentType.Directory)
+                {
+                    CountRelativeSize(childNode);
+                }
+            }
         }
     }
 }
