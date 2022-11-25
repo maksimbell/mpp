@@ -26,12 +26,13 @@ namespace DirectoryScanner.Model
         private ConcurrentQueue<Task> _folderQueue;
         private CancellationToken _cancellationToken;
 
-        private int _threadCount = 10;
+        private int _threadCount;
         private Semaphore _semaphore;
 
 
-        public Scanner()
+        public Scanner(int threadCount)
         {
+            _threadCount = threadCount;
             _folderQueue = new ConcurrentQueue<Task>();
             _semaphore = new Semaphore(_threadCount, _threadCount);
         }

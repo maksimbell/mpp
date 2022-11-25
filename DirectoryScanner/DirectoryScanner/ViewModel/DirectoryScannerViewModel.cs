@@ -74,7 +74,8 @@ namespace DirectoryScanner.ViewModel
 
         public DirectoryScannerViewModel()
         {
-            _scanner = new Scanner();
+            var threadCount = 10;
+            _scanner = new Scanner(threadCount);
         }
     }
 }
