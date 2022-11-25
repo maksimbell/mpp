@@ -14,7 +14,9 @@ namespace DirectoryScanner.ViewModel
 {
     public class DirectoryScannerViewModel: INotifyPropertyChanged
     {
-        CancellationTokenSource _cancelTokenSource;
+        private CancellationTokenSource _cancelTokenSource;
+
+        private Scanner _scanner;
 
         private IDirectoryComponent? _root;
 
@@ -27,7 +29,7 @@ namespace DirectoryScanner.ViewModel
             }
         }
 
-        private void Scan()
+        private void StartScanner()
         {
             var fbd = new FolderBrowserForWPF.Dialog();
             string path = String.Empty;
@@ -39,8 +41,7 @@ namespace DirectoryScanner.ViewModel
 
             Task.Run(() =>
             {
-                Scanner scanner = new Scanner(token);
-                Root = scanner.StartScanner(fbd.FileName);
+                Root = _scanner.StartScanner(fbd.FileName, token);
             });
 
         }
@@ -53,22 +54,27 @@ namespace DirectoryScanner.ViewModel
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
 
-        private BaseCommand? _startScanner;
-        public BaseCommand StartScanner
+        private BaseCommand? _startScannerCommand;
+        public BaseCommand StartScannerCommand
         {
-            get { return _startScanner ??= new BaseCommand(obj => Scan()); }
+            get { return _startScannerCommand ??= new BaseCommand(obj => StartScanner()); }
         }
 
-        private BaseCommand? _cancelScanner;
-        public BaseCommand CancelScanner
+        private BaseCommand? _cancelScannerCommand;
+        public BaseCommand CancelScannerCommand
         {
-            get { return _cancelScanner ??= new BaseCommand(obj => Cancel()); }
+            get { return _cancelScannerCommand ??= new BaseCommand(obj => CancelScanner()); }
         }
 
-        public void Cancel()
+        public void CancelScanner()
         {
             _cancelTokenSource.Cancel();
             _cancelTokenSource.Dispose();
+        }
+
+        public DirectoryScannerViewModel()
+        {
+            _scanner = new Scanner();
         }
     }
 }

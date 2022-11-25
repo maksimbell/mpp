@@ -16,7 +16,9 @@ namespace DirectoryScanner.Model
         private string _path;
 
         private DirectoryComponent _root;
-        public DirectoryComponent Root { 
+
+        public DirectoryComponent Root
+        {
             get { return _root; }
             set { _root = value; }
         }
@@ -28,25 +30,24 @@ namespace DirectoryScanner.Model
         private Semaphore _semaphore;
 
 
-        public Scanner(CancellationToken token)
+        public Scanner()
         {
-            _cancellationToken = token;
             _folderQueue = new ConcurrentQueue<Task>();
             _semaphore = new Semaphore(_threadCount, _threadCount);
         }
 
-        public IDirectoryComponent StartScanner(string path)
+        public IDirectoryComponent StartScanner(string path, CancellationToken token)
         {
+            _cancellationToken = token;
             _path = path;
             _root = new DirectoryComponent(new DirectoryInfo(_path).Name, _path, ComponentType.Directory);
 
-            _folderQueue.Enqueue(new Task(() => ScanDirectory(_root), _cancellationToken));
+            _folderQueue.Enqueue(Task.Run(() => ScanDirectory(_root), _cancellationToken));
 
             try
             {
                 while(_folderQueue.TryDequeue(out var task) && !_cancellationToken.IsCancellationRequested)
                 {
-                    task.Start();
                     task.Wait(_cancellationToken);
                 }
             }
@@ -55,8 +56,8 @@ namespace DirectoryScanner.Model
                 _folderQueue.Clear();
             }
 
-            _root.Size = CountSize(_root);
-            CountRelativeSize(_root);
+            //_root.Size = CountSize(_root);
+            //CountRelativeSize(_root);
 
             return Root;
         }
@@ -67,16 +68,24 @@ namespace DirectoryScanner.Model
 
             var dirInfo = new DirectoryInfo(dir.FullName);
 
-            foreach(var dirPath in dirInfo.EnumerateDirectories())
+            try
             {
-                var child = new DirectoryComponent(dirPath.Name, dirPath.FullName, ComponentType.Directory);
-                dir.ChildNodes.Add(child);
-                _folderQueue.Enqueue(new Task(() => ScanDirectory(child), _cancellationToken));
-            }
+                foreach(var dirPath in dirInfo.EnumerateDirectories().Where(dir => dir.LinkTarget == null))
+                {
+                    var child = new DirectoryComponent(dirPath.Name, dirPath.FullName, ComponentType.Directory);
+                    dir.ChildNodes.Add(child);
+                    _folderQueue.Enqueue(Task.Run(() => ScanDirectory(child), _cancellationToken));
+                }
 
-            foreach(var dirPath in dirInfo.EnumerateFiles())
+                foreach(var dirPath in dirInfo.EnumerateFiles().Where(file => file.LinkTarget == null))
+                {
+                    dir.ChildNodes.Add(new DirectoryComponent(dirPath.Name, dirPath.FullName, ComponentType.File, dirPath.Length));
+                    dir.Size += dirPath.Length;
+                }
+            }
+            catch(Exception e)
             {
-                dir.ChildNodes.Add(new DirectoryComponent(dirPath.Name, dirPath.FullName, ComponentType.File, dirPath.Length));
+
             }
 
             _semaphore.Release();
@@ -86,7 +95,7 @@ namespace DirectoryScanner.Model
         {
             long size = 0;
 
-            foreach(var childNode in parentNode.ChildNodes)
+            foreach(var childNode in parentNode.ChildNodes.ToList())
             {
                 if(childNode.Type == ComponentType.Directory)
                 {
@@ -105,7 +114,7 @@ namespace DirectoryScanner.Model
 
         private void CountRelativeSize(IDirectoryComponent parentNode)
         {
-            foreach(var childNode in parentNode.ChildNodes)
+            foreach(var childNode in parentNode.ChildNodes.ToList())
             {
                 childNode.Percentage = (double)childNode.Size / (double)parentNode.Size * 100;
 
