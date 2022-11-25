@@ -10,13 +10,14 @@ using System.Windows.Data;
 using System.Windows.Markup;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace DirectoryScanner.View
 {
     [ValueConversion(typeof(ComponentType), typeof(BitmapImage))]
     public class TypeToSourceConverter : MarkupExtension, IValueConverter
     {
-        private const string _path = @"C:\\Users\\maksimbell\\bsuir\\5sem\\mpp\\DirectoryScanner\\DirectoryScanner.View\\images\\";
+        private const string _path = @"..\..\..\images\";
         private const string _ext = ".png";
 
         private static TypeToSourceConverter _converter = null;
@@ -24,8 +25,9 @@ namespace DirectoryScanner.View
         {
             var type = (ComponentType)value;
             var path = _path + type.ToString() +  _ext;
-            var uri = new Uri(path);
+            var uri = new Uri(Path.GetFullPath(path));
             var source = new BitmapImage(uri);
+
             return source;
         }
 
