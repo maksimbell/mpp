@@ -8,15 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Directory.png" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\DirectoryScanner\DirectoryScanner.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Directory.png" />
   </ItemGroup>
 
 </Project>
