@@ -56,8 +56,8 @@ namespace DirectoryScanner.Model
                 _folderQueue.Clear();
             }
 
-            //_root.Size = CountSize(_root);
-            //CountRelativeSize(_root);
+            _root.Size = CountSize(_root);
+            CountRelativeSize(_root);
 
             return Root;
         }
