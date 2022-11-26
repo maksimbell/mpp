@@ -27,14 +27,14 @@ namespace DirectoryScanner.Model
         private CancellationToken _cancellationToken;
 
         private int _threadCount;
-        private Semaphore _semaphore;
+        private SemaphoreSlim _semaphore;
 
 
         public Scanner(int threadCount)
         {
             _threadCount = threadCount;
             _folderQueue = new ConcurrentQueue<Task>();
-            _semaphore = new Semaphore(_threadCount, _threadCount);
+            _semaphore = new SemaphoreSlim(_threadCount, _threadCount);
         }
 
         public IDirectoryComponent StartScanner(string path, CancellationToken token)
@@ -42,12 +42,17 @@ namespace DirectoryScanner.Model
             _cancellationToken = token;
             _path = path;
             _root = new DirectoryComponent(new DirectoryInfo(_path).Name, _path, ComponentType.Directory, 0, 100);
+
+            _semaphore.Wait(_cancellationToken);
             _folderQueue.Enqueue(Task.Run(() => ScanDirectory(_root), _cancellationToken));
 
             try
             {
                 while(_folderQueue.TryDequeue(out var task) && !_cancellationToken.IsCancellationRequested)
                 {
+                    if(task.Status.Equals(TaskStatus.Created) && !task.IsCompleted)
+                        task.Start();
+
                     task.Wait(_cancellationToken);
                 }
             }
@@ -64,7 +69,6 @@ namespace DirectoryScanner.Model
 
         private void ScanDirectory(DirectoryComponent dir)
         {
-            _semaphore.WaitOne();
 
             var dirInfo = new DirectoryInfo(dir.FullName);
 
@@ -75,7 +79,22 @@ namespace DirectoryScanner.Model
                     if(_cancellationToken.IsCancellationRequested) return;
                     var child = new DirectoryComponent(dirPath.Name, dirPath.FullName, ComponentType.Directory);
                     dir.ChildNodes.Add(child);
-                    _folderQueue.Enqueue(Task.Run(() => ScanDirectory(child), _cancellationToken));
+                    if(_semaphore.CurrentCount != 0)
+                    {
+                        _folderQueue.Enqueue(Task.Run(() =>
+                        {
+                            _semaphore.Wait();
+                            ScanDirectory(child);
+                        }, _cancellationToken));
+                    }
+                    else
+                    {
+                        _folderQueue.Enqueue(new Task(() =>
+                        {
+                            _semaphore.Wait();
+                            ScanDirectory(child);
+                        }, _cancellationToken));
+                    }
                 }
 
                 foreach(var dirPath in dirInfo.EnumerateFiles().Where(file => file.LinkTarget == null))
@@ -118,7 +137,7 @@ namespace DirectoryScanner.Model
         {
             foreach(var childNode in parentNode.ChildNodes.ToList())
             {
-                childNode.Percentage = childNode.Percentage == 0 ? 
+                childNode.Percentage = childNode.Percentage == 0 ?
                     (double)childNode.Size / (double)parentNode.Size * 100 : childNode.Percentage;
 
                 if(childNode.Type == ComponentType.Directory)
