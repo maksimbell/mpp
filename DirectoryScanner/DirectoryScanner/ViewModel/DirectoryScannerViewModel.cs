@@ -71,8 +71,11 @@ namespace DirectoryScanner.ViewModel
 
         public void CancelScanner()
         {
-            _cancelTokenSource.Cancel();
-            _cancelTokenSource.Dispose();
+            if(_cancelTokenSource != null && !_cancelTokenSource.IsCancellationRequested)
+            {
+                _cancelTokenSource.Cancel();
+                _cancelTokenSource.Dispose();
+            }
         }
 
         public DirectoryScannerViewModel()
