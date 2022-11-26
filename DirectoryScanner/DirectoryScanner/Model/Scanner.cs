@@ -41,8 +41,7 @@ namespace DirectoryScanner.Model
         {
             _cancellationToken = token;
             _path = path;
-            _root = new DirectoryComponent(new DirectoryInfo(_path).Name, _path, ComponentType.Directory);
-
+            _root = new DirectoryComponent(new DirectoryInfo(_path).Name, _path, ComponentType.Directory, 0, 100);
             _folderQueue.Enqueue(Task.Run(() => ScanDirectory(_root), _cancellationToken));
 
             try
@@ -73,6 +72,7 @@ namespace DirectoryScanner.Model
             {
                 foreach(var dirPath in dirInfo.EnumerateDirectories().Where(dir => dir.LinkTarget == null))
                 {
+                    if(_cancellationToken.IsCancellationRequested) return;
                     var child = new DirectoryComponent(dirPath.Name, dirPath.FullName, ComponentType.Directory);
                     dir.ChildNodes.Add(child);
                     _folderQueue.Enqueue(Task.Run(() => ScanDirectory(child), _cancellationToken));
@@ -80,6 +80,7 @@ namespace DirectoryScanner.Model
 
                 foreach(var dirPath in dirInfo.EnumerateFiles().Where(file => file.LinkTarget == null))
                 {
+                    if(_cancellationToken.IsCancellationRequested) return;
                     dir.ChildNodes.Add(new DirectoryComponent(dirPath.Name, dirPath.FullName, ComponentType.File, dirPath.Length));
                     dir.Size += dirPath.Length;
                 }
@@ -117,7 +118,8 @@ namespace DirectoryScanner.Model
         {
             foreach(var childNode in parentNode.ChildNodes.ToList())
             {
-                childNode.Percentage = (double)childNode.Size / (double)parentNode.Size * 100;
+                childNode.Percentage = childNode.Percentage == 0 ? 
+                    (double)childNode.Size / (double)parentNode.Size * 100 : childNode.Percentage;
 
                 if(childNode.Type == ComponentType.Directory)
                 {

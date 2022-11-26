@@ -39,9 +39,12 @@ namespace DirectoryScanner.ViewModel
             _cancelTokenSource = new CancellationTokenSource(); 
             var token = _cancelTokenSource.Token;
 
+
             Task.Run(() =>
             {
-                Root = _scanner.StartScanner(fbd.FileName, token);
+                var root = new DirectoryComponent("", "", ComponentType.Directory);
+                root.ChildNodes = new ObservableCollection<IDirectoryComponent> { _scanner.StartScanner(fbd.FileName, token) };
+                Root = root;
             });
 
         }
