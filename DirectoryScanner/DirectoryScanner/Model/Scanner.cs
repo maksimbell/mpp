@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace DirectoryScanner.Model
 {
@@ -60,6 +61,7 @@ namespace DirectoryScanner.Model
             {
                 _folderQueue.Clear();
             }
+            Trace.WriteLine(_semaphore.CurrentCount);
 
             _root.Size = CountSize(_root);
             CountRelativeSize(_root);
@@ -69,14 +71,16 @@ namespace DirectoryScanner.Model
 
         private void ScanDirectory(DirectoryComponent dir)
         {
-
+            Trace.WriteLine(_semaphore.CurrentCount);
+            //
             var dirInfo = new DirectoryInfo(dir.FullName);
 
             try
             {
                 foreach(var dirPath in dirInfo.EnumerateDirectories().Where(dir => dir.LinkTarget == null))
                 {
-                    if(_cancellationToken.IsCancellationRequested) return;
+                    if(_cancellationToken.IsCancellationRequested) 
+                        return;
                     var child = new DirectoryComponent(dirPath.Name, dirPath.FullName, ComponentType.Directory);
                     dir.ChildNodes.Add(child);
                     if(_semaphore.CurrentCount != 0)
@@ -99,7 +103,8 @@ namespace DirectoryScanner.Model
 
                 foreach(var dirPath in dirInfo.EnumerateFiles().Where(file => file.LinkTarget == null))
                 {
-                    if(_cancellationToken.IsCancellationRequested) return;
+                    if(_cancellationToken.IsCancellationRequested) 
+                        return;
                     dir.ChildNodes.Add(new DirectoryComponent(dirPath.Name, dirPath.FullName, ComponentType.File, dirPath.Length));
                     dir.Size += dirPath.Length;
                 }
@@ -109,6 +114,7 @@ namespace DirectoryScanner.Model
 
             }
 
+            //Trace.WriteLine(_semaphore.CurrentCount);
             _semaphore.Release();
         }
 
