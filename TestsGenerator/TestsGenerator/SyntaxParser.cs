@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace TestsGenerator
 {
-    internal class SyntaxParser
+    public class SyntaxParser
     {
         public static CompilationUnitSyntax Parse(string srcText)
         {
