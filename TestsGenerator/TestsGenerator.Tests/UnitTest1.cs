@@ -71,4 +71,40 @@ namespace TestsGenerator.Tests
             Assert.AreEqual(0, methodsDeclarations.Count());
         }
     }
+
+    [TestClass]
+    public class GeneratorTetsts
+    {
+        internal static CompilationUnitSyntax outputTree = null;
+
+        [ClassInitialize]
+        public static void TestFixtureSetup(TestContext context)
+        {
+            var generatedCode = TestsGenerator.GenerateTestCode(ParserTests.inputTree);
+            outputTree = SyntaxParser.Parse(generatedCode);
+        }
+
+        [TestMethod]
+        public void TestMethod06()
+        {
+            TestGeneratedClassesDeclarations();
+            TestGeneratedMethodsDeclarations();
+        }
+
+        public void TestGeneratedClassesDeclarations()
+        {
+            var classDeclarations = SyntaxParser.GetClassDeclarations(outputTree);
+
+            Assert.AreEqual(1, classDeclarations.Count());
+        }
+
+        public void TestGeneratedMethodsDeclarations()
+        {
+            var methodsDeclarations = SyntaxParser.GetPublicMethodsDeclarations(
+               SyntaxParser.GetClassDeclarations(outputTree).First());
+            Assert.AreEqual("Test_FirstClass_Generate_Method", methodsDeclarations.ElementAt(0).Identifier.ValueText);
+            Assert.AreEqual("Test_FirstClass_GetGeneratingType_Method", methodsDeclarations.ElementAt(1).Identifier.ValueText);
+            Assert.AreEqual("Test_SecondClass_Calculate_Method", methodsDeclarations.ElementAt(2).Identifier.ValueText);
+        }
+    }
 }
