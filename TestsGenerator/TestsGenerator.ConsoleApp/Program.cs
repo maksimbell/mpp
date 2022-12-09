@@ -1,11 +1,14 @@
-﻿using System.Threading.Tasks.Dataflow;
+﻿using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using System.Threading.Tasks.Dataflow;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace TestsGenerator.ConsoleApp
 {
     internal class Program
     {
-        private const string srcDir = "./../../../../SourceFiles/";
-        private const string outputDir = "./../../../../OutputFiles/";
+        private const string srcDir = "./../../../SourceFiles/";
+        private const string outputDir = "./../../../OutputFiles/";
         static void Main(string[] args)
         {
             var parser = new SyntaxParser();
@@ -18,14 +21,18 @@ namespace TestsGenerator.ConsoleApp
                 return await File.ReadAllTextAsync(inputFilePath);
             }, blockOptions);
 
-            var generateTestsBlock = new TransformBlock<string, string>(async classSrcCode =>
+            var generateTestsBlock = new TransformBlock<string, IEnumerable<string>>(async classSrcCode =>
             {
                 return await TestsGenerator.GetTestCode(classSrcCode);
             }, blockOptions);
 
-            var writeTestsIntoFile = new ActionBlock<string>(async testClassSrcCode =>
-            {
-                await File.WriteAllTextAsync(string.Format("{0}/{1}.cs", outputDir, Guid.NewGuid()), testClassSrcCode);
+            var writeTestsIntoFile = new ActionBlock<IEnumerable<string>>(async testClassSrcCode =>
+            {   foreach(var test in testClassSrcCode)
+                {
+                    var root = await CSharpSyntaxTree.ParseText(test).GetRootAsync();
+                    var classDeclaration = root.DescendantNodes().OfType<ClassDeclarationSyntax>().First();
+                    await File.WriteAllTextAsync(string.Format("{0}/{1}.cs", outputDir, classDeclaration.Identifier.Text), test);
+                }
             }, blockOptions);
 
             var linkOptions = new DataflowLinkOptions { PropagateCompletion = true };

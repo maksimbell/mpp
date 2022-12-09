@@ -81,7 +81,7 @@ namespace TestsGenerator.Tests
         public static void TestFixtureSetup(TestContext context)
         {
             var generatedCode = TestsGenerator.GenerateTestCode(ParserTests.inputTree);
-            outputTree = SyntaxParser.Parse(generatedCode);
+            //outputTree = SyntaxParser.Parse(generatedCode);
         }
 
         [TestMethod]
