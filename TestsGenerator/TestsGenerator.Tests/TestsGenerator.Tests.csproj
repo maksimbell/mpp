@@ -17,7 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TestsGenerator.ConsoleApp\TestApp.csproj" />
     <ProjectReference Include="..\TestsGenerator\TestsGenerator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="OutputFiles\" />
   </ItemGroup>
 
 </Project>

@@ -8,7 +8,7 @@ namespace TestsGenerator.ConsoleApp
     internal class Program
     {
         private const string srcDir = "./../../../SourceFiles/";
-        private const string outputDir = "./../../../OutputFiles/";
+        private const string outputDir = "./../../../../TestsGenerator.Tests/OutputFiles/";
         static void Main(string[] args)
         {
             var parser = new SyntaxParser();
