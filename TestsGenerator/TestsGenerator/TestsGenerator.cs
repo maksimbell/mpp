@@ -88,7 +88,7 @@ namespace TestsGenerator
                     testClass = testClass.AddMembers(testMethodDeclaration);
                 }
 
-                testNamespace = testNamespace.AddMembers(testClass);
+                testNamespace = testNamespace.AddMembers(testClass.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword)));
                 testRoot = testRoot.AddMembers(testNamespace); 
 
                 var code = testRoot
