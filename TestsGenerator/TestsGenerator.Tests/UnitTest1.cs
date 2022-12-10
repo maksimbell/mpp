@@ -74,15 +74,18 @@ namespace TestsGenerator.Tests
     }
 
     [TestClass]
-    public class GeneratorTetsts
+    public class GeneratorTests
     {
-        internal static CompilationUnitSyntax outputTree = null;
+        internal static List<CompilationUnitSyntax> outputTrees = new List<CompilationUnitSyntax>();
 
         [ClassInitialize]
         public static void TestFixtureSetup(TestContext context)
         {
             var generatedCode = TestsGenerator.GenerateTestCode(ParserTests.inputTree);
-            outputTree = SyntaxParser.Parse(generatedCode.First());
+            foreach(var code in generatedCode)
+            {
+                outputTrees.Add(SyntaxParser.Parse(code));
+            }
         }
 
         [TestMethod]
@@ -94,18 +97,19 @@ namespace TestsGenerator.Tests
 
         public void TestGeneratedClassesDeclarations()
         {
-            var classDeclarations = SyntaxParser.GetClassDeclarations(outputTree);
-
-            Assert.AreEqual(1, classDeclarations.Count());
+            foreach(var tree in outputTrees)
+            {
+                var classDeclarations = SyntaxParser.GetClassDeclarations(tree);
+                Assert.AreEqual(1, classDeclarations.Count());
+            }
         }
 
         public void TestGeneratedMethodsDeclarations()
         {
             var methodsDeclarations = SyntaxParser.GetPublicMethodsDeclarations(
-               SyntaxParser.GetClassDeclarations(outputTree).First());
+               SyntaxParser.GetClassDeclarations(outputTrees.First()).First());
             Assert.AreEqual("Test_FirstClass_Generate_Method", methodsDeclarations.ElementAt(0).Identifier.ValueText);
             Assert.AreEqual("Test_FirstClass_GetGeneratingType_Method", methodsDeclarations.ElementAt(1).Identifier.ValueText);
-            Assert.AreEqual("Test_SecondClass_Calculate_Method", methodsDeclarations.ElementAt(2).Identifier.ValueText);
         }
     }
 }
