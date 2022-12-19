@@ -35,7 +35,7 @@ namespace DirectoryScanner.Model
         {
             _threadCount = threadCount;
             _folderQueue = new ConcurrentQueue<Task>();
-            _semaphore = new SemaphoreSlim(_threadCount, _threadCount);
+            _semaphore = new SemaphoreSlim(1, _threadCount);
         }
 
         public IDirectoryComponent StartScanner(string path, CancellationToken token)
@@ -81,9 +81,11 @@ namespace DirectoryScanner.Model
                 {
                     if(_cancellationToken.IsCancellationRequested) 
                         return;
+
                     var child = new DirectoryComponent(dirPath.Name, dirPath.FullName, ComponentType.Directory);
                     dir.ChildNodes.Add(child);
-                    if(_semaphore.CurrentCount != 0)
+
+                    if(_semaphore.CurrentCount != 0)//can create thread
                     {
                         _folderQueue.Enqueue(Task.Run(() =>
                         {
@@ -94,8 +96,9 @@ namespace DirectoryScanner.Model
                     else
                     {
                         _folderQueue.Enqueue(new Task(() =>
-                        {
+                        {//net dostupa
                             _semaphore.Wait();
+                            //est;
                             ScanDirectory(child);
                         }, _cancellationToken));
                     }

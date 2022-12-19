@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using DirectoryScanner.Model;
 using System.Diagnostics;
+using System.Windows.Media.Animation;
 
 namespace DirectoryScanner.ViewModel
 {
@@ -39,6 +40,7 @@ namespace DirectoryScanner.ViewModel
 
             _cancelTokenSource = new CancellationTokenSource(); 
             var token = _cancelTokenSource.Token;
+
             Trace.WriteLine(Thread.CurrentThread.ManagedThreadId);
             Trace.WriteLine("________________________________");
 
@@ -46,8 +48,10 @@ namespace DirectoryScanner.ViewModel
             {
                 Trace.WriteLine(Thread.CurrentThread.ManagedThreadId);
                 Trace.WriteLine("________________________________");
+
                 var root = new DirectoryComponent("", "", ComponentType.Directory);
                 root.ChildNodes = new ObservableCollection<IDirectoryComponent> { _scanner.StartScanner(fbd.FileName, token) };
+
                 Root = root;
             });
 
