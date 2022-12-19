@@ -1,9 +1,10 @@
 ﻿using System.Text;
 
-namespace StringFormatter
+namespace StringFormatting
 {
     public class StringFormatter : IStringFormatter
-    { 
+    {
+        public static readonly StringFormatter Shared = new StringFormatter();
         private enum State
         {
             Default, Character, Open, Close 
@@ -13,11 +14,10 @@ namespace StringFormatter
         private string _identifierChars = "abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
         private State state = State.Default;
-
-        public static readonly StringFormatter Shared = new StringFormatter();
         public string Format(string template, object target)
         {
             StringBuilder current = new StringBuilder();
+            StringBuilder result = new StringBuilder();
 
             for(int i = 0; i < template.Length; i++)
             {
@@ -26,19 +26,24 @@ namespace StringFormatter
                     case State.Default:
                         if(template[i] == '{')
                         {
+                            result.Append(template[i]);
                             state = State.Open;
                         } else if(template[i] == '}')
                         {
+                            result.Append(template[i]);
                             state = State.Close;
                         }
                         else
                         {
+                            result.Append(template[i]);
                             state = State.Default;
                         }
                         break;
                     case State.Open:
                         if(_identifierChars.Contains(template[i]))//identifier char
                         {
+                            result.Remove(result.Length - 1, 1);
+                            current.Clear();
                             current.Append(template[i]);
                             state = State.Character;
                         }
@@ -57,6 +62,9 @@ namespace StringFormatter
                         }
                         else if(template[i] == '}')
                         {
+                            string identifier = current.ToString();
+                            result.Append(current);
+
                             state = State.Default;
                         }
                         else throw new Exception();
@@ -71,11 +79,7 @@ namespace StringFormatter
                 }
             }
 
-
-
-
-
-            return "";
+            return result.ToString();
         }
     }
 }

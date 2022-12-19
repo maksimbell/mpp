@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringFormatter", "StringFormatter\StringFormatter.csproj", "{7D876A5F-42E8-4B55-98FF-310443FBC14E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringFormatterTests", "StringFormatterTests\StringFormatterTests.csproj", "{4C683967-44B5-4EA2-B412-703E877F878A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7D876A5F-42E8-4B55-98FF-310443FBC14E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D876A5F-42E8-4B55-98FF-310443FBC14E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D876A5F-42E8-4B55-98FF-310443FBC14E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C683967-44B5-4EA2-B412-703E877F878A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C683967-44B5-4EA2-B412-703E877F878A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C683967-44B5-4EA2-B412-703E877F878A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C683967-44B5-4EA2-B412-703E877F878A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
