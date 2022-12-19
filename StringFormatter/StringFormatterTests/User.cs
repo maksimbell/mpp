@@ -20,7 +20,7 @@ namespace StringFormatterTests
 
         public string GetGreeting()
         {
-            return StringFormatter.Shared.Format("{{{{FirstName}}}}", this);
+            return StringFormatting.StringFormatter.Shared.Format("{FirstName}", this);
         }
     }
 }

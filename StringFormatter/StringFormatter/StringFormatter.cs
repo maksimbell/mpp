@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using StringFormatter;
+using System.Text;
 
 namespace StringFormatting
 {
@@ -9,6 +10,8 @@ namespace StringFormatting
         {
             Default, Character, Open, Close 
         }
+
+        private FormattingCache _cache = new FormattingCache();
 
         private string _digits = "0123456789";
         private string _identifierChars = "abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -62,10 +65,13 @@ namespace StringFormatting
                         }
                         else if(template[i] == '}')
                         {
-                            string identifier = current.ToString();
-                            result.Append(current);
-
-                            state = State.Default;
+                            string identifier = _cache.GetOrAdd(current.ToString(), target);
+                            if(identifier != null)
+                            {
+                                result.Append(identifier);
+                                state = State.Default;
+                            }
+                            else throw new Exception();
                         }
                         else throw new Exception();
                         break;
