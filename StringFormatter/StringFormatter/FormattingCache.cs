@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StringFormatter
+namespace StringFormatting
 {
     public class FormattingCache
     {
@@ -24,14 +24,14 @@ namespace StringFormatter
 
             if(_cache.TryGetValue(key, out value))
             {
-                return value.ToString();
+                return value(target);
             }
             else
             {
                 if(target.GetType().GetProperty(memberName) != null ||
                     target.GetType().GetField(memberName) != null)
                 {
-                    var objParam = Expression.Parameter(typeof(object), "obj");
+                    var objParam = Expression.Parameter(typeof(object));
                     var member = Expression.PropertyOrField(Expression.TypeAs(objParam, target.GetType()), memberName);
                     var memberToString = Expression.Call(member, "ToString", null, null);
                     var toString = Expression.Lambda<Func<object, string>>(memberToString, objParam).Compile();

@@ -20,7 +20,8 @@ namespace StringFormatterTests
 
         public string GetGreeting()
         {
-            return StringFormatting.StringFormatter.Shared.Format("{FirstName}", this);
+            return StringFormatting.StringFormatter.Shared.Format(
+                "Hi, {FirstName} {LastName}!", this);
         }
     }
 }
