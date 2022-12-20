@@ -87,5 +87,20 @@ namespace StringFormatterTests
                 ).Message,
                 "No such class member");
         }
+
+        [TestMethod]
+        public void Test_FormattingCache()
+        {
+            var cache = new FormattingCache();
+            var user = new User("Mark", "Wahlberg");
+            string firstNameMember = "FirstName";
+
+            cache.GetOrAdd(firstNameMember, user);
+            Assert.IsTrue(cache.Elements.ContainsKey("StringFormatterTests.User.FirstName"));
+
+            cache.GetOrAdd(firstNameMember, user);
+            Assert.AreEqual(cache.Elements.Count, 1);
+
+        }
     }
 }

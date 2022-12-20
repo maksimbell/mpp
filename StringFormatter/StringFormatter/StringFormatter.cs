@@ -11,7 +11,7 @@ namespace StringFormatting
             Default, Character, Open, Close 
         }
 
-        private FormattingCache _cache = new FormattingCache();
+        private FormattingCache _cache;
 
         private string _digits = "0123456789";
         private string _identifierChars = "abcdefghijklmnopqrstuvwxyz_ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -22,6 +22,7 @@ namespace StringFormatting
             StringBuilder current = new StringBuilder();
             StringBuilder result = new StringBuilder();
             _state = State.Default;
+            _cache = new FormattingCache();
 
             for(int i = 0; i < template.Length; i++)
             {
